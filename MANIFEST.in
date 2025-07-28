@@ -1,18 +1,84 @@
+# Core documentation
 include README.md
 include LICENSE
+include CHANGELOG.md
+include CONTRIBUTING.md
+include SECURITY.md
+include DEPLOYMENT.md
+
+# Configuration and setup
 include requirements.txt
 include .env.example
-recursive-include linkwarden_enhancer *.py
-recursive-include linkwarden_enhancer/config *.py
-recursive-include linkwarden_enhancer/data *.json
-recursive-exclude linkwarden_enhancer/data/reports *
-recursive-exclude linkwarden_enhancer/data/learned_patterns.json
-recursive-exclude linkwarden_enhancer/__pycache__ *
-recursive-exclude linkwarden_enhancer/*/__pycache__ *
-exclude backup*.json
-exclude *.log
+include setup.py
+include dev_setup.py
+
+# Main entry points
+include cli.py
+include main.py
+include __main__.py
+include __init__.py
+include data_models.py
+
+# Source code
+recursive-include ai *.py
+recursive-include cli *.py
+recursive-include config *.py *.json
+recursive-include core *.py
+recursive-include enhancement *.py
+recursive-include help *.py
+recursive-include importers *.py
+recursive-include intelligence *.py
+recursive-include reporting *.py
+recursive-include utils *.py
+
+# Documentation
+recursive-include docs *.md *.rst *.txt
+recursive-include examples *.json *.py *.md
+
+# Specifications
+recursive-include .kiro *.md
+
+# GUI static files (when implemented)
+recursive-include gui/static *.html *.css *.js *.svg *.png *.ico
+
+# Test files
+recursive-include tests *.py
+
+# GitHub configuration
+recursive-include .github *.yml *.md
+
+# Exclude sensitive and temporary files
 exclude .env
-global-exclude *.pyc
-global-exclude *.pyo
-global-exclude *~
-global-exclude .DS_Store
+exclude *.log
+recursive-exclude . __pycache__
+recursive-exclude . *.py[co]
+recursive-exclude . *.so
+recursive-exclude . .DS_Store
+recursive-exclude . *.swp
+recursive-exclude . *.swo
+recursive-exclude . *~
+
+# Exclude personal data directories
+exclude data/
+exclude backups/
+exclude cache/
+exclude logs/
+exclude models/
+exclude reports/
+
+# Exclude build artifacts
+exclude build/
+exclude dist/
+exclude *.egg-info/
+exclude .coverage
+exclude .pytest_cache/
+exclude .tox/
+
+# Exclude IDE files
+exclude .vscode/
+exclude .idea/
+exclude *.sublime-*
+
+# Exclude version control
+exclude .git/
+exclude .gitignore

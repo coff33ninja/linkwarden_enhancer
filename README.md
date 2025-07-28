@@ -15,6 +15,36 @@ For detailed documentation on all modules, classes, and functions, please see th
 - **[Reporting](docs/reporting.md)**
 - **[Utilities](docs/utils.md)**
 
+## 🏗️ **Architecture Visualization**
+
+Explore the codebase structure with our integrated CLI architecture analysis:
+
+```bash
+# Generate interactive HTML report and open in browser
+linkwarden-enhancer analyze-architecture --format html --open-browser
+
+# Generate text report to console
+linkwarden-enhancer analyze-architecture --format text
+
+# Generate JSON report for programmatic use
+linkwarden-enhancer analyze-architecture --format json --output architecture.json
+
+# Analyze specific path with suggestions
+linkwarden-enhancer analyze-architecture --path ./src --suggest-improvements
+
+# Save HTML report to custom file
+linkwarden-enhancer analyze-architecture --format html --html-output my_report.html
+```
+
+The HTML report provides:
+- **Visual Module Tree**: Color-coded directory structure distinguishing venv, core, AI, CLI, and utility modules
+- **Interactive Filtering**: Filter modules by type (Core, AI, CLI, Utilities)
+- **Dependency Visualization**: See internal and external dependencies with visual indicators
+- **Module Details**: Lines of code, classes, functions, and documentation for each module
+- **Architecture Statistics**: Comprehensive metrics about the codebase structure
+- **Entry Points**: Identify main application entry points and CLI commands
+- **Architecture Suggestions**: Get recommendations for improving code organization
+
 ## 🚀 Core Features
 
 ### 🛡️ **Enterprise-Grade Safety System**
@@ -135,7 +165,7 @@ linkwarden_enhancer/
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/coff33ninja/linkwarden_enhancer
+git clone https://github.com/coff33ninja/linkwarden-enhancer.git
 cd linkwarden-enhancer
 ```
 
@@ -159,6 +189,9 @@ source .venv/bin/activate
 # Install dependencies
 pip install -r requirements.txt
 ```
+
+### 3. Alternative: Download Release
+You can also download the latest release from the [GitHub Releases page](https://github.com/coff33ninja/linkwarden-enhancer/releases) and extract it to your desired location. Once it if feauture proof.
 
 ### 3. Configure Environment (Optional)
 ```bash

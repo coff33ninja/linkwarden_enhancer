@@ -169,6 +169,9 @@ Examples:
         # Help command
         self._add_help_command(subparsers)
         
+        # Architecture detection command
+        self._add_architecture_command(subparsers)
+        
         return parser
     
     def _add_process_command(self, subparsers) -> None:
@@ -516,6 +519,30 @@ Examples:
         help_parser.add_argument('--quick', action='store_true',
                                help='Show quick reference guide')
     
+    def _add_architecture_command(self, subparsers) -> None:
+        """Add architecture detection command"""
+        
+        arch_parser = subparsers.add_parser('analyze-architecture',
+                                           help='🏗️ Analyze codebase architecture and dependencies')
+        arch_parser.add_argument('--path', type=str, default='.',
+                               help='Path to analyze (default: current directory)')
+        arch_parser.add_argument('--format', choices=['text', 'json', 'html'], default='text',
+                               help='Output format (default: text)')
+        arch_parser.add_argument('--output', '-o', type=str,
+                               help='Save report to file')
+        arch_parser.add_argument('--save-json', type=str,
+                               help='Save JSON report to file for programmatic use')
+        arch_parser.add_argument('--show-details', action='store_true',
+                               help='Show detailed module information')
+        arch_parser.add_argument('--detect-issues', action='store_true',
+                               help='Detect potential architecture issues')
+        arch_parser.add_argument('--suggest-improvements', action='store_true',
+                               help='Suggest architecture improvements')
+        arch_parser.add_argument('--open-browser', action='store_true',
+                               help='Open HTML report in browser (only for HTML format)')
+        arch_parser.add_argument('--html-output', type=str, default='architecture_report.html',
+                               help='HTML output filename (default: architecture_report.html)')
+    
     def _apply_cli_overrides(self, args) -> None:
         """Apply CLI argument overrides to configuration"""
         
@@ -735,6 +762,8 @@ Examples:
                     return self._execute_menu_command(args)
                 elif args.command == 'help':
                     return self._execute_help_command(args)
+                elif args.command == 'analyze-architecture':
+                    return self._execute_architecture_command(args)
                 else:
                     print(f"❌ Unknown command: {args.command}")
                     return 1
@@ -1910,6 +1939,133 @@ Examples:
             logger.error(f"Help command failed: {e}")
             print(f"❌ Help system failed: {e}")
             return 1
+    
+    def _execute_architecture_command(self, args) -> int:
+        """Execute architecture analysis command"""
+        
+        try:
+            from help.architecture_detection import ArchitectureDetector
+            import webbrowser
+            from pathlib import Path
+            
+            print(f"Analyzing architecture at: {args.path}")
+            
+            # Initialize detector
+            detector = ArchitectureDetector(args.path)
+            
+            # Perform analysis
+            analysis = detector.analyze()
+            
+            # Generate report
+            report = detector.generate_report(args.format)
+            
+            # Handle output based on format
+            if args.format == 'html':
+                # For HTML, always save to file
+                output_file = args.output or args.html_output
+                detector.save_report(output_file, 'html')
+                print(f"HTML report saved to: {output_file}")
+                
+                # Open in browser if requested
+                if args.open_browser:
+                    try:
+                        report_path = Path(output_file).absolute()
+                        webbrowser.open(f"file://{report_path}")
+                        print(f"Opening report in browser: {report_path}")
+                    except Exception as e:
+                        print(f"Could not open browser automatically: {e}")
+                        print(f"Please open manually: {Path(output_file).absolute()}")
+                        
+            elif args.output:
+                # For text/json with explicit output file
+                detector.save_report(args.output, args.format)
+                print(f"Report saved to: {args.output}")
+            else:
+                # For text/json without output file, print to console
+                print("\n" + report)
+            
+            # Save JSON if requested (in addition to main output)
+            if args.save_json:
+                detector.save_report(args.save_json, 'json')
+                print(f"JSON data saved to: {args.save_json}")
+            
+            # Show summary
+            print(f"\nArchitecture analysis complete!")
+            print(f"   Analyzed {analysis.total_modules} modules")
+            print(f"   Total lines of code: {analysis.total_lines:,}")
+            print(f"   External dependencies: {len(analysis.external_dependencies)}")
+            print(f"   Entry points: {len(analysis.entry_points)}")
+            
+            if analysis.circular_dependencies:
+                print(f"   Circular dependencies detected: {len(analysis.circular_dependencies)}")
+            
+            # Show suggestions if requested
+            if args.suggest_improvements:
+                self._show_architecture_suggestions(analysis)
+            
+            return 0
+            
+        except Exception as e:
+            logger.error(f"Architecture analysis failed: {e}")
+            print(f"Architecture analysis failed: {e}")
+            if self.verbose:
+                import traceback
+                traceback.print_exc()
+            return 1
+    
+    def _show_architecture_suggestions(self, analysis) -> None:
+        """Show architecture improvement suggestions"""
+        
+        print(f"\nARCHITECTURE IMPROVEMENT SUGGESTIONS")
+        print("=" * 50)
+        
+        suggestions = []
+        
+        # Check for circular dependencies
+        if analysis.circular_dependencies:
+            suggestions.append("Resolve circular dependencies to improve maintainability")
+            for i, cycle in enumerate(analysis.circular_dependencies[:3]):  # Show first 3
+                suggestions.append(f"   - Cycle {i+1}: {' -> '.join(cycle)}")
+        
+        # Check for large modules
+        large_modules = [
+            (name, info) for name, info in analysis.modules.items()
+            if info.lines_of_code > 500
+        ]
+        if large_modules:
+            suggestions.append(f"Consider splitting large modules (>{500} lines):")
+            for name, info in sorted(large_modules, key=lambda x: x[1].lines_of_code, reverse=True)[:5]:
+                suggestions.append(f"   - {name}: {info.lines_of_code} lines")
+        
+        # Check for highly connected modules
+        highly_connected = [
+            (name, info) for name, info in analysis.modules.items()
+            if len(info.dependencies) + len(info.dependents) > 10
+        ]
+        if highly_connected:
+            suggestions.append("Consider reducing coupling for highly connected modules:")
+            for name, info in sorted(highly_connected, 
+                                   key=lambda x: len(x[1].dependencies) + len(x[1].dependents), 
+                                   reverse=True)[:5]:
+                total_connections = len(info.dependencies) + len(info.dependents)
+                suggestions.append(f"   - {name}: {total_connections} connections")
+        
+        # Check for missing entry points
+        if not analysis.entry_points:
+            suggestions.append("No clear entry points detected - consider adding main modules")
+        
+        # Check for too many external dependencies
+        if len(analysis.external_dependencies) > 20:
+            suggestions.append(f"High number of external dependencies ({len(analysis.external_dependencies)}) - consider consolidation")
+        
+        # Show suggestions
+        if suggestions:
+            for suggestion in suggestions:
+                print(f"  {suggestion}")
+        else:
+            print("  Architecture looks good! No major issues detected.")
+        
+        print(f"\nFor detailed analysis, use: --save-json architecture_analysis.json")
     
     def _interactive_process_bookmarks(self) -> None:
         """Interactive bookmark processing"""
