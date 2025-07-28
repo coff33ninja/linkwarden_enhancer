@@ -195,3 +195,56 @@ The `help` command displays help and documentation.
 ```bash
 linkwarden-enhancer help [topic]
 ```
+
+## Combinational Examples
+
+Here are some examples of how to combine different commands and options to achieve specific workflows.
+
+### Example 1: Initial Setup and Processing
+
+This example shows how to import bookmarks from multiple sources, process them with AI enhancement, and generate a report.
+
+```bash
+# 1. Import bookmarks from GitHub and a browser, and merge them into a single file
+linkwarden-enhancer import \
+  --github --github-token YOUR_TOKEN --github-username YOUR_USERNAME \
+  --browser /path/to/your/bookmarks.html \
+  --output initial_import.json
+
+# 2. Process the imported bookmarks with AI enhancement and interactive review
+linkwarden-enhancer process initial_import.json enhanced_bookmarks.json \
+  --enable-ai-analysis \
+  --enable-learning \
+  --enable-clustering \
+  --interactive \
+  --generate-report --report-format html
+```
+
+### Example 2: Dead Link Detection and Cleanup
+
+This example shows how to detect dead links in your bookmark collection and organize them into separate collections.
+
+```bash
+# 1. Check for dead links in your bookmark file
+linkwarden-enhancer check-dead-links your_bookmarks.json \
+  --output dead_links_report.html --format html
+
+# 2. Organize the dead and suspicious links into separate collections
+linkwarden-enhancer check-dead-links your_bookmarks.json \
+  --organize --create-collections
+```
+
+### Example 3: Backup, Train, and Restore
+
+This example shows how to create a backup of your intelligence data, train the AI with new data, and then restore from the backup if needed.
+
+```bash
+# 1. Create a backup of your current intelligence data
+linkwarden-enhancer intelligence export --output intelligence_backup.json
+
+# 2. Train the AI with a new set of bookmarks
+linkwarden-enhancer intelligence train new_bookmarks.json --incremental
+
+# 3. If the training results are not satisfactory, restore from the backup
+linkwarden-enhancer intelligence import intelligence_backup.json
+```
