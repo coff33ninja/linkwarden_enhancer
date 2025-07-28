@@ -1,0 +1,18 @@
+include README.md
+include LICENSE
+include requirements.txt
+include .env.example
+recursive-include linkwarden_enhancer *.py
+recursive-include linkwarden_enhancer/config *.py
+recursive-include linkwarden_enhancer/data *.json
+recursive-exclude linkwarden_enhancer/data/reports *
+recursive-exclude linkwarden_enhancer/data/learned_patterns.json
+recursive-exclude linkwarden_enhancer/__pycache__ *
+recursive-exclude linkwarden_enhancer/*/__pycache__ *
+exclude backup*.json
+exclude *.log
+exclude .env
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude *~
+global-exclude .DS_Store

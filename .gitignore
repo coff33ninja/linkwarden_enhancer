@@ -1,0 +1,117 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Data files (contains personal/sensitive data)
+data/
+backups/
+cache/
+models/
+reports/
+logs/
+
+# Personal data files
+*.json
+!.vscode/*.json
+!package*.json
+!tsconfig*.json
+!**/config/*.json
+!linkwarden_enhancer/data/adaptive_intelligence_default.json
+!linkwarden_enhancer/examples/*.json
+*.csv
+*.pkl
+*.db
+*.sqlite
+
+# Backup files
+backup*.json
+*_backup.json
+fixed_*.json
+original_*.json
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Testing
+.coverage
+.pytest_cache/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Documentation
+docs/_build/
+.readthedocs.yml
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Scraped content cache
+scraped_cache/
+selenium_cache/
+
+# AI Models (large files)
+*.bin
+*.safetensors
+*.onnx
+
+# Backup files
+backup*.json
+fixed_backup*.json
+original_backup*.json
