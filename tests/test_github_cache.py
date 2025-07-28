@@ -8,11 +8,8 @@ import sys
 import time
 from pathlib import Path
 
-# Add the project root to Python path
-sys.path.insert(0, str(Path(__file__).parent))
-
-from linkwarden_enhancer.importers.github_importer import GitHubImporter
-from linkwarden_enhancer.config.settings import load_config
+from importers.github_importer import GitHubImporter
+from config.settings import load_config
 
 def test_github_cache():
     """Test GitHub caching functionality"""

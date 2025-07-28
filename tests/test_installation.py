@@ -21,20 +21,20 @@ def test_python_version():
 def test_package_import():
     """Test if the package can be imported"""
     try:
-        import linkwarden_enhancer
-        print(f"✅ Package import: linkwarden_enhancer v{linkwarden_enhancer.__version__}")
+        import main
+        print(f"✅ Main script import: main.py")
         return True
     except ImportError as e:
-        print(f"❌ Package import failed: {e}")
+        print(f"❌ Main script import failed: {e}")
         return False
 
 
 def test_core_modules():
     """Test if core modules can be imported"""
     modules = [
-        'linkwarden_enhancer.config',
-        'linkwarden_enhancer.utils',
-        'linkwarden_enhancer.main',
+        'config',
+        'utils',
+        'main',
     ]
     
     failed_modules = []
@@ -107,7 +107,7 @@ def test_directories():
 def test_configuration():
     """Test configuration loading"""
     try:
-        from linkwarden_enhancer.config import load_config
+        from config.settings import load_config
         config = load_config()
         print("✅ Configuration: Loaded successfully")
         return True

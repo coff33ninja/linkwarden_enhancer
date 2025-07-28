@@ -3,7 +3,7 @@ Tests for specialized content analyzers
 """
 
 import unittest
-from linkwarden_enhancer.ai.specialized_analyzers import (
+from ai.specialized_analyzers import (
     GamingAnalyzer,
     DevelopmentAnalyzer,
     ResearchAnalyzer,

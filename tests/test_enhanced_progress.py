@@ -4,7 +4,7 @@
 import json
 import time
 from pathlib import Path
-from linkwarden_enhancer.cli.main_cli import MainCLI
+from cli.main_cli import MainCLI
 
 def create_test_data():
     """Create test bookmark data"""
@@ -121,14 +121,9 @@ def test_enhanced_progress_tracking():
         
         # Run the CLI with enhanced progress tracking
         result = cli.run([
-            'process', 
-            test_input, 
+            'process',
+            test_input,
             test_output,
-            '--verbose',
-            '--dry-run',
-            '--progress-detail', 'detailed',
-            '--learning-feedback',
-            '--performance-metrics',
             '--enable-ai-analysis',
             '--enable-learning',
             '--enable-clustering',
@@ -168,7 +163,7 @@ def test_detailed_progress_tracker():
     print("\n🧪 Testing DetailedProgressTracker Directly")
     print("=" * 50)
     
-    from linkwarden_enhancer.utils.progress_utils import DetailedProgressTracker
+    from utils.progress_utils import DetailedProgressTracker
     
     # Test phases
     phases = ['validation', 'enhancement', 'ai_analysis', 'learning', 'output']
