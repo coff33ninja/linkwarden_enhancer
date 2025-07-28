@@ -24,7 +24,7 @@ current_dir = Path(__file__).parent
 sys.path.insert(0, str(current_dir))
 
 try:
-    from linkwarden_enhancer.cli.main_cli import main
+    from cli.main_cli import main
     
     if __name__ == '__main__':
         sys.exit(main())
