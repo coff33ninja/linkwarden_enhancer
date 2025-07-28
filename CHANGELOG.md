@@ -18,10 +18,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Interactive data visualization and reporting components
 - REST API endpoints for programmatic access
 - Performance monitoring and resource management interface
+- **Important disclaimer**: Clarified NO AFFILIATION with official Linkwarden project
 
 ### Changed
 - Enhanced project structure to support web GUI module
 - Updated documentation to include web interface capabilities
+- Added clear disclaimer about project independence from official Linkwarden team
 
 ## [1.0.0] - 2025-01-28
 

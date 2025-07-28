@@ -2,6 +2,14 @@
 
 A comprehensive, AI-powered bookmark management system that transforms your Linkwarden bookmarks into an intelligent, continuously learning organization tool. Built with enterprise-grade safety systems, advanced machine learning capabilities, multi-source import functionality, and adaptive intelligence that evolves with your browsing patterns.
 
+## ⚠️ **Important Disclaimer**
+
+**This project has NO AFFILIATION with the official Linkwarden team or project.** The name "Linkwarden Enhancer" was chosen temporarily out of spite to get AI tagging functionality working, and will be changed to something else in the future.
+
+**If you like Linkwarden, please support the official project:** https://github.com/linkwarden/linkwarden
+
+This is an independent, standalone bookmark management tool that happens to support Linkwarden import/export formats among many others. We respect and appreciate the work done by the official Linkwarden team.
+
 ## 📖 **Documentation**
 
 For detailed documentation on all modules, classes, and functions, please see the `docs` directory.

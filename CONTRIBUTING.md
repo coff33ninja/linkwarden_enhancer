@@ -2,6 +2,10 @@
 
 Thank you for your interest in contributing to Linkwarden Enhancer! This document provides guidelines and information for contributors.
 
+## ⚠️ **Important Note**
+
+**This project has NO AFFILIATION with the official Linkwarden team.** This is an independent bookmark management tool. If you're looking to contribute to the official Linkwarden project, please visit: https://github.com/linkwarden/linkwarden
+
 ## 🚀 Getting Started
 
 ### Prerequisites

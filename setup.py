@@ -16,7 +16,7 @@ setup(
     name="linkwarden-enhancer",
     version="1.0.0",
     author="DJ",
-    description="AI-powered bookmark management system with enterprise-grade safety features - Standalone Package",
+    description="AI-powered bookmark management system with enterprise-grade safety features - Standalone Package (NO AFFILIATION with official Linkwarden project)",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/coff33ninja/linkwarden-enhancer",
