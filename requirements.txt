@@ -15,6 +15,7 @@ networkx>=2.6.0
 selenium>=4.0.0
 requests-html>=0.10.0
 newspaper3k>=0.2.8
+aiohttp>=3.8.0
 
 # GitHub integration
 PyGithub>=1.55.0

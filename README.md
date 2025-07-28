@@ -12,6 +12,7 @@ A comprehensive, AI-powered bookmark management system that transforms your Link
 - **Dry-Run Mode**: Complete preview of all changes before execution
 - **Safety Thresholds**: Configurable limits for deletions, modifications, and bulk operations
 - **Integrity Monitoring**: Continuous data integrity checks with orphaned reference detection
+- **Dead Link Detection**: Intelligent detection and categorization of broken, suspicious, and working links
 
 ### 🧠 **Advanced AI & Machine Learning**
 - **Content Analysis Engine**: Multi-layered content understanding using scikit-learn, NLTK, and spaCy
@@ -40,6 +41,16 @@ A comprehensive, AI-powered bookmark management system that transforms your Link
 - **Intelligent Merging**: Advanced conflict resolution and duplicate handling
 - **Metadata Enhancement**: Automatic enrichment of imported bookmarks with missing data
 - **Batch Processing**: Efficient handling of large import datasets
+
+### 🔍 **Dead Link Detection & Management**
+- **Concurrent Link Checking**: High-performance async checking with configurable concurrency
+- **Intelligent Categorization**: Automatic classification of dead, suspicious, and working links
+- **Smart Retry Logic**: Configurable retry attempts with exponential backoff
+- **Status Code Analysis**: Detailed HTTP status code interpretation and categorization
+- **Automatic Organization**: Move dead links to dedicated collections with custom naming
+- **Comprehensive Reporting**: Generate detailed HTML and JSON reports with statistics
+- **Batch Processing**: Efficient handling of large bookmark collections
+- **Progress Tracking**: Real-time progress monitoring with detailed statistics
 
 ### 🌐 **Advanced Web Scraping & Enhancement**
 - **Multi-Engine Scraping**: BeautifulSoup, Selenium, and Newspaper3k for comprehensive content extraction
@@ -219,6 +230,11 @@ linkwarden-enhancer cache info --source github
 linkwarden-enhancer cache clear --source github --confirm
 linkwarden-enhancer cache refresh --source github --github-username USER
 
+# Dead link detection and management
+linkwarden-enhancer check-dead-links input.json --output dead_links_report.json
+linkwarden-enhancer check-dead-links input.json --organize --create-collections
+linkwarden-enhancer check-dead-links input.json --concurrent 20 --timeout 15 --format html
+
 # Comprehensive statistics and monitoring
 linkwarden-enhancer stats --learning --intelligence --performance --safety
 linkwarden-enhancer stats --all --export comprehensive_stats.json
@@ -331,6 +347,28 @@ linkwarden-enhancer stats [OPTIONS]
 --safety                   # Show safety system statistics
 --all                      # Show all statistics
 --export FILE              # Export statistics to file
+```
+
+#### **Dead Link Detection Command**
+```bash
+# Check for dead links
+linkwarden-enhancer check-dead-links INPUT_FILE [OPTIONS]
+
+# Detection options
+--concurrent INT            # Concurrent requests (default: 10)
+--timeout INT              # Request timeout in seconds (default: 10)
+--max-retries INT          # Maximum retry attempts (default: 2)
+--retry-delay FLOAT        # Delay between retries (default: 1.0)
+
+# Output options
+--output FILE              # Save detailed results to file
+--format FORMAT            # Report format: json|html (default: json)
+--organize                 # Organize bookmarks by moving dead links
+--create-collections       # Create separate collections for dead/suspicious links
+
+# Collection naming
+--dead-collection-name TEXT     # Name for dead links collection (default: "🔗 Dead Links")
+--suspicious-collection-name TEXT # Name for suspicious links collection (default: "⚠️ Suspicious Links")
 ```
 
 #### **Backup Command**

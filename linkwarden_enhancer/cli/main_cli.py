@@ -4,6 +4,7 @@ import argparse
 import sys
 import json
 import time
+import asyncio
 from typing import Dict, List, Any, Optional
 from pathlib import Path
 from datetime import datetime
@@ -11,6 +12,7 @@ from datetime import datetime
 from .interactive import InteractiveReviewer, InteractiveMenu
 from .help_system import HelpSystem
 from ..core.safety_manager import SafetyManager
+from ..core.dead_link_detector import DeadLinkDetector, DeadLinkManager
 from ..intelligence.dictionary_manager import SmartDictionaryManager
 from ..intelligence.continuous_learner import ContinuousLearner
 from ..intelligence.adaptive_intelligence import AdaptiveIntelligence
@@ -151,6 +153,9 @@ Examples:
         
         # Backup command
         self._add_backup_command(subparsers)
+        
+        # Dead link detection command
+        self._add_dead_links_command(subparsers)
         
         # Intelligence command
         self._add_intelligence_command(subparsers)
@@ -386,6 +391,40 @@ Examples:
                                                      help='Clean up old backups')
         cleanup_backups.add_argument('--days', type=int, default=30,
                                    help='Keep backups newer than N days')
+    
+    def _add_dead_links_command(self, subparsers) -> None:
+        """Add dead link detection command"""
+        
+        dead_links_parser = subparsers.add_parser('check-dead-links',
+                                                help='Check for and manage dead links')
+        
+        dead_links_parser.add_argument('input_file', help='Input bookmark file')
+        
+        # Detection options
+        dead_links_parser.add_argument('--concurrent', type=int, default=10,
+                                     help='Number of concurrent requests (default: 10)')
+        dead_links_parser.add_argument('--timeout', type=int, default=10,
+                                     help='Request timeout in seconds (default: 10)')
+        dead_links_parser.add_argument('--max-retries', type=int, default=2,
+                                     help='Maximum retry attempts (default: 2)')
+        dead_links_parser.add_argument('--retry-delay', type=float, default=1.0,
+                                     help='Delay between retries in seconds (default: 1.0)')
+        
+        # Output options
+        dead_links_parser.add_argument('--output', type=str,
+                                     help='Save detailed results to file')
+        dead_links_parser.add_argument('--format', choices=['json', 'html'], default='json',
+                                     help='Report format (default: json)')
+        dead_links_parser.add_argument('--organize', action='store_true',
+                                     help='Organize bookmarks by moving dead links')
+        dead_links_parser.add_argument('--create-collections', action='store_true',
+                                     help='Create separate collections for dead/suspicious links')
+        
+        # Collection naming
+        dead_links_parser.add_argument('--dead-collection-name', type=str, default='🔗 Dead Links',
+                                     help='Name for dead links collection')
+        dead_links_parser.add_argument('--suspicious-collection-name', type=str, default='⚠️ Suspicious Links',
+                                     help='Name for suspicious links collection')
     
     def _add_intelligence_command(self, subparsers) -> None:
         """Add intelligence command"""
@@ -686,6 +725,8 @@ Examples:
                     return self._execute_stats_command(args)
                 elif args.command == 'backup':
                     return self._execute_backup_command(args)
+                elif args.command == 'check-dead-links':
+                    return self._execute_dead_links_command(args)
                 elif args.command == 'intelligence':
                     return self._execute_intelligence_command(args)
                 elif args.command == 'cache':
@@ -1597,6 +1638,119 @@ Examples:
         except Exception as e:
             logger.error(f"Backup command failed: {e}")
             print(f"❌ Backup operation failed: {e}")
+            return 1
+    
+    def _execute_dead_links_command(self, args) -> int:
+        """Execute dead link detection command"""
+        
+        try:
+            import asyncio
+            from ..utils.json_handler import JSONHandler
+            
+            print(f"🔍 Checking dead links in: {args.input_file}")
+            
+            # Load bookmarks
+            json_handler = JSONHandler()
+            data = json_handler.load_json(args.input_file)
+            
+            if not data:
+                print("❌ Failed to load bookmark data")
+                return 1
+            
+            # Extract bookmarks from data
+            bookmarks = []
+            if isinstance(data, dict):
+                if 'collections' in data:
+                    for collection in data['collections']:
+                        if 'links' in collection:
+                            bookmarks.extend(collection['links'])
+                elif 'links' in data:
+                    bookmarks = data['links']
+            elif isinstance(data, list):
+                bookmarks = data
+            
+            if not bookmarks:
+                print("❌ No bookmarks found in the data")
+                return 1
+            
+            print(f"📊 Found {len(bookmarks)} bookmarks to check")
+            
+            # Configure dead link detector
+            detector_config = {
+                'concurrent_requests': args.concurrent,
+                'timeout': args.timeout,
+                'max_retries': args.max_retries,
+                'retry_delay': args.retry_delay,
+                'verbose': self.verbose
+            }
+            
+            detector = DeadLinkDetector(detector_config)
+            
+            # Run dead link detection
+            print("🚀 Starting dead link detection...")
+            results = asyncio.run(detector.check_bookmarks(bookmarks))
+            
+            # Display summary
+            summary = results['summary']
+            print(f"\n📈 Detection Results:")
+            print(f"   ✅ Working: {summary['working_count']} ({summary['working_percentage']:.1f}%)")
+            print(f"   ❌ Dead: {summary['dead_count']} ({summary['dead_percentage']:.1f}%)")
+            print(f"   ⚠️ Suspicious: {summary['suspicious_count']} ({summary['suspicious_percentage']:.1f}%)")
+            
+            # Save detailed results if requested
+            if args.output:
+                report = detector.generate_report(args.format)
+                
+                with open(args.output, 'w', encoding='utf-8') as f:
+                    f.write(report)
+                
+                print(f"💾 Detailed report saved to: {args.output}")
+            
+            # Organize bookmarks if requested
+            if args.organize or args.create_collections:
+                print("\n🗂️ Organizing bookmarks...")
+                
+                manager = DeadLinkManager({'verbose': self.verbose})
+                organization_result = manager.organize_dead_links(bookmarks, results)
+                
+                # Update the original data structure
+                if args.create_collections:
+                    # Add new collections for dead and suspicious links
+                    if isinstance(data, dict) and 'collections' in data:
+                        if organization_result['dead_collection']['links']:
+                            organization_result['dead_collection']['name'] = args.dead_collection_name
+                            data['collections'].append(organization_result['dead_collection'])
+                        
+                        if organization_result['suspicious_collection']['links']:
+                            organization_result['suspicious_collection']['name'] = args.suspicious_collection_name
+                            data['collections'].append(organization_result['suspicious_collection'])
+                        
+                        # Remove dead/suspicious links from original collections
+                        dead_ids = {link.id for link in organization_result['dead_collection']['links']}
+                        suspicious_ids = {link.id for link in organization_result['suspicious_collection']['links']}
+                        
+                        for collection in data['collections']:
+                            if 'links' in collection:
+                                collection['links'] = [
+                                    link for link in collection['links']
+                                    if link.get('id') not in dead_ids and link.get('id') not in suspicious_ids
+                                ]
+                
+                # Save organized data
+                output_file = args.input_file.replace('.json', '_organized.json')
+                json_handler.save_json(data, output_file)
+                
+                org_summary = organization_result['organization_summary']
+                print(f"✅ Organization complete:")
+                print(f"   📁 Moved to dead collection: {org_summary['moved_to_dead']}")
+                print(f"   📁 Moved to suspicious collection: {org_summary['moved_to_suspicious']}")
+                print(f"   💾 Organized data saved to: {output_file}")
+            
+            return 0
+            
+        except Exception as e:
+            logger.error(f"Dead link detection failed: {e}")
+            print(f"❌ Dead link detection failed: {e}")
             return 1
     
     def _execute_intelligence_command(self, args) -> int:
