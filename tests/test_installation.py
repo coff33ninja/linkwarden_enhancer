@@ -23,7 +23,10 @@ def test_package_import():
     except ImportError as e:
         print(f"❌ Main script import failed: {e}")
         assert False
-
+        return True
+    except ImportError as e:
+        print(f"❌ Main script import failed: {e}")
+        return False
 
 def test_core_modules():
     """Test if core modules can be imported"""
