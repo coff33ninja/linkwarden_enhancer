@@ -2153,6 +2153,550 @@ Examples:
             return 1
 
 
+    def _interactive_configuration(self) -> None:
+        """Interactive configuration management"""
+        
+        print("\n⚙️ Configuration Management")
+        print("=" * 50)
+        
+        options = [
+            ("1", "📄 View current configuration", "view"),
+            ("2", "✏️ Edit configuration file", "edit"),
+            ("3", "🔄 Reload configuration", "reload"),
+            ("4", "📋 Show configuration help", "help"),
+            ("b", "🔙 Back to main menu", "back")
+        ]
+        
+        while True:
+            print("\nConfiguration Options:")
+            for key, desc, _ in options:
+                print(f"  {key}. {desc}")
+            
+            choice = input("\nSelect option: ").strip().lower()
+            
+            if choice == "b" or choice == "back":
+                break
+            elif choice == "1" or choice == "view":
+                self._show_current_config()
+            elif choice == "2" or choice == "edit":
+                self._edit_config_file()
+            elif choice == "3" or choice == "reload":
+                self._reload_configuration()
+            elif choice == "4" or choice == "help":
+                self._show_config_help()
+            else:
+                print("❌ Invalid option. Please try again.")
+    
+    def _show_current_config(self) -> None:
+        """Show current configuration"""
+        
+        print("\n📄 Current Configuration:")
+        print("-" * 30)
+        
+        # Show key configuration sections
+        sections = ['safety', 'ai', 'github', 'intelligence', 'logging']
+        
+        for section in sections:
+            if section in self.config:
+                print(f"\n[{section.upper()}]")
+                self._print_nested_dict(self.config[section], 1)
+            else:
+                print(f"\n[{section.upper()}] - Not configured")
+    
+    def _edit_config_file(self) -> None:
+        """Edit configuration file"""
+        
+        config_file = "config/settings.py"
+        
+        print(f"\n✏️ Configuration file: {config_file}")
+        
+        if not Path(config_file).exists():
+            print("❌ Configuration file not found")
+            create = input("Create default configuration file? (y/N): ").strip().lower()
+            if create in ['y', 'yes']:
+                try:
+                    # Create basic config file
+                    Path("config").mkdir(exist_ok=True)
+                    with open(config_file, 'w') as f:
+                        f.write("""# Linkwarden Enhancer Configuration
+# Edit this file to customize your settings
+
+DEFAULT_CONFIG = {
+    'safety': {
+        'max_deletion_percentage': 10.0,
+        'dry_run_mode': False,
+        'backup_enabled': True
+    },
+    'ai': {
+        'enable_analysis': False,
+        'ollama_model': 'llama2',
+        'similarity_threshold': 0.85
+    },
+    'github': {
+        'token': '',  # Add your GitHub token here
+        'username': ''  # Add your GitHub username here
+    }
+}
+""")
+                    print(f"✅ Created default configuration file: {config_file}")
+                except Exception as e:
+                    print(f"❌ Failed to create config file: {e}")
+                    return
+        
+        print(f"📝 Please edit {config_file} with your preferred text editor")
+        print("   After editing, use option 3 to reload the configuration")
+    
+    def _reload_configuration(self) -> None:
+        """Reload configuration"""
+        
+        print("\n🔄 Reloading configuration...")
+        
+        try:
+            from config.settings import load_config
+            self.config = load_config()
+            print("✅ Configuration reloaded successfully")
+        except Exception as e:
+            print(f"❌ Failed to reload configuration: {e}")
+    
+    def _show_config_help(self) -> None:
+        """Show configuration help"""
+        
+        print("\n📋 Configuration Help")
+        print("=" * 50)
+        
+        help_text = """
+CONFIGURATION FILES:
+  • config/settings.py - Main configuration file
+  • config/defaults.py - Default values (don't edit)
+  • .env - Environment variables (GitHub tokens, etc.)
+
+KEY SETTINGS:
+
+[SAFETY]
+  • max_deletion_percentage: Maximum % of items that can be deleted (default: 10%)
+  • dry_run_mode: Preview changes without applying them
+  • backup_enabled: Create backups before operations
+
+[AI]
+  • enable_analysis: Enable AI content analysis
+  • ollama_model: Local LLM model to use (e.g., 'llama2')
+  • similarity_threshold: Threshold for duplicate detection (0.0-1.0)
+
+[GITHUB]
+  • token: GitHub Personal Access Token (required for imports)
+  • username: Your GitHub username
+
+[INTELLIGENCE]
+  • enable_learning: Learn from user behavior
+  • learning_rate: How quickly to adapt (0.0-1.0)
+
+ENVIRONMENT VARIABLES (.env file):
+  GITHUB_TOKEN=your_token_here
+  GITHUB_USERNAME=your_username
+        """
+        
+        print(help_text)
+    
+    def _interactive_import_sources(self) -> None:
+        """Interactive import from sources"""
+        
+        print("\n📥 Import from Sources")
+        print("=" * 50)
+        
+        print("Available import sources:")
+        print("  1. 🐙 GitHub (starred repositories)")
+        print("  2. 🌐 Browser bookmarks")
+        print("  3. 📄 Linkwarden backup file")
+        
+        choice = input("\nSelect source (1-3): ").strip()
+        
+        if choice == "1":
+            self._interactive_github_import()
+        elif choice == "2":
+            self._interactive_browser_import()
+        elif choice == "3":
+            self._interactive_linkwarden_import()
+        else:
+            print("❌ Invalid choice")
+    
+    def _interactive_github_import(self) -> None:
+        """Interactive GitHub import"""
+        
+        print("\n🐙 GitHub Import")
+        
+        # Check for GitHub configuration
+        github_config = self.config.get('github', {})
+        token = github_config.get('token')
+        username = github_config.get('username')
+        
+        if not token:
+            token = input("Enter GitHub token: ").strip()
+            if not token:
+                print("❌ GitHub token is required")
+                return
+        
+        if not username:
+            username = input("Enter GitHub username: ").strip()
+            if not username:
+                print("❌ GitHub username is required")
+                return
+        
+        output_file = input("Enter output file path: ").strip()
+        if not output_file:
+            output_file = f"github_import_{int(time.time())}.json"
+        
+        print(f"\n🔄 Importing GitHub data for {username}...")
+        print(f"📁 Output file: {output_file}")
+        
+        # This would call the actual import functionality
+        print("✅ GitHub import completed (placeholder)")
+    
+    def _interactive_browser_import(self) -> None:
+        """Interactive browser import"""
+        
+        print("\n🌐 Browser Bookmarks Import")
+        
+        browser_file = input("Enter browser bookmarks file path: ").strip()
+        if not browser_file or not Path(browser_file).exists():
+            print("❌ Browser bookmarks file not found")
+            return
+        
+        output_file = input("Enter output file path: ").strip()
+        if not output_file:
+            output_file = f"browser_import_{int(time.time())}.json"
+        
+        print(f"\n🔄 Importing browser bookmarks...")
+        print(f"📁 Input file: {browser_file}")
+        print(f"📁 Output file: {output_file}")
+        
+        # This would call the actual import functionality
+        print("✅ Browser import completed (placeholder)")
+    
+    def _interactive_linkwarden_import(self) -> None:
+        """Interactive Linkwarden backup import"""
+        
+        print("\n📄 Linkwarden Backup Import")
+        
+        backup_file = input("Enter Linkwarden backup file path: ").strip()
+        if not backup_file or not Path(backup_file).exists():
+            print("❌ Backup file not found")
+            return
+        
+        output_file = input("Enter output file path: ").strip()
+        if not output_file:
+            output_file = f"linkwarden_import_{int(time.time())}.json"
+        
+        print(f"\n🔄 Processing Linkwarden backup...")
+        print(f"📁 Input file: {backup_file}")
+        print(f"📁 Output file: {output_file}")
+        
+        # This would call the actual import functionality
+        print("✅ Linkwarden import completed (placeholder)")
+    
+    def _interactive_show_stats(self) -> None:
+        """Interactive statistics display"""
+        
+        print("\n🧠 System Statistics")
+        print("=" * 50)
+        
+        try:
+            # Get safety statistics
+            safety_stats = self.safety_manager.get_safety_statistics()
+            
+            print("\n📊 Safety System:")
+            if 'backup_stats' in safety_stats:
+                b_stats = safety_stats['backup_stats']
+                print(f"  • Total backups: {b_stats.get('total_backups', 0)}")
+                print(f"  • Total size: {b_stats.get('total_size_mb', 0):.1f} MB")
+            
+            if 'validation_stats' in safety_stats:
+                v_stats = safety_stats['validation_stats'].get('validation_stats', {})
+                print(f"  • Validations performed: {v_stats.get('total_validations', 0)}")
+                print(f"  • Schema errors found: {v_stats.get('schema_errors', 0)}")
+            
+            print("\n🧠 Intelligence System:")
+            print("  • Learning enabled: ✅" if self.config.get('intelligence', {}).get('enable_learning') else "  • Learning enabled: ❌")
+            
+            print("\n🔧 Current Configuration:")
+            print(f"  • Dry run mode: {'✅' if self.dry_run else '❌'}")
+            print(f"  • Verbose logging: {'✅' if self.verbose else '❌'}")
+            print(f"  • Interactive mode: {'✅' if self.interactive_mode else '❌'}")
+            
+        except Exception as e:
+            print(f"❌ Failed to get statistics: {e}")
+    
+    def _interactive_generate_reports(self) -> None:
+        """Interactive report generation"""
+        
+        print("\n📊 Generate Reports")
+        print("=" * 50)
+        
+        print("Available report types:")
+        print("  1. 📈 Operation comparison report")
+        print("  2. ⏱️ Performance metrics report")
+        print("  3. 🛡️ Safety system report")
+        
+        choice = input("\nSelect report type (1-3): ").strip()
+        
+        if choice == "1":
+            print("\n📈 Operation Comparison Report")
+            before_file = input("Enter 'before' file path: ").strip()
+            after_file = input("Enter 'after' file path: ").strip()
+            
+            if before_file and after_file:
+                print(f"🔄 Generating comparison report...")
+                print(f"📁 Before: {before_file}")
+                print(f"📁 After: {after_file}")
+                print("✅ Report generated (placeholder)")
+            else:
+                print("❌ Both files are required")
+        
+        elif choice == "2":
+            print("\n⏱️ Performance Metrics Report")
+            print("🔄 Generating performance report...")
+            print("✅ Performance report generated (placeholder)")
+        
+        elif choice == "3":
+            print("\n🛡️ Safety System Report")
+            print("🔄 Generating safety report...")
+            print("✅ Safety report generated (placeholder)")
+        
+        else:
+            print("❌ Invalid choice")
+    
+    def _interactive_validate_data(self) -> None:
+        """Interactive data validation"""
+        
+        print("\n🔍 Data Validation")
+        print("=" * 50)
+        
+        input_file = input("Enter file path to validate: ").strip()
+        
+        if not input_file:
+            print("❌ File path is required")
+            return
+        
+        if not Path(input_file).exists():
+            print(f"❌ File not found: {input_file}")
+            return
+        
+        print(f"\n🔍 Validating: {input_file}")
+        
+        try:
+            validation_result = self.safety_manager.validate_data_file(input_file)
+            
+            if validation_result.get('overall_valid', False):
+                print("✅ Validation passed!")
+            else:
+                print("❌ Validation failed!")
+            
+            # Show validation details
+            checks = [
+                ('Schema', validation_result.get('schema_valid', False)),
+                ('Consistency', validation_result.get('consistency_valid', False)),
+                ('Fields', validation_result.get('fields_valid', False)),
+                ('Integrity', validation_result.get('integrity_valid', False))
+            ]
+            
+            print("\nValidation Results:")
+            for check_name, passed in checks:
+                status = "✅ PASS" if passed else "❌ FAIL"
+                print(f"  {check_name}: {status}")
+            
+            if validation_result.get('errors'):
+                print(f"\n❌ Errors ({len(validation_result['errors'])}):")
+                for error in validation_result['errors'][:5]:
+                    print(f"  • {error}")
+                if len(validation_result['errors']) > 5:
+                    print(f"  ... and {len(validation_result['errors']) - 5} more errors")
+            
+        except Exception as e:
+            print(f"❌ Validation failed: {e}")
+    
+    def _interactive_backup_operations(self) -> None:
+        """Interactive backup operations"""
+        
+        print("\n💾 Backup & Recovery")
+        print("=" * 50)
+        
+        print("Available operations:")
+        print("  1. 📋 List backups")
+        print("  2. 💾 Create backup")
+        print("  3. 🔄 Restore from backup")
+        print("  4. 🧹 Cleanup old backups")
+        
+        choice = input("\nSelect operation (1-4): ").strip()
+        
+        if choice == "1":
+            self._list_backups()
+        elif choice == "2":
+            self._create_backup()
+        elif choice == "3":
+            self._restore_backup()
+        elif choice == "4":
+            self._cleanup_backups()
+        else:
+            print("❌ Invalid choice")
+    
+    def _list_backups(self) -> None:
+        """List available backups"""
+        
+        print("\n📋 Available Backups")
+        
+        try:
+            backups = self.safety_manager.list_available_backups()
+            
+            if not backups:
+                print("  No backups found")
+                return
+            
+            print(f"  Found {len(backups)} backups:")
+            
+            for backup in backups[:10]:  # Show first 10
+                age_str = f"{backup['age_hours']:.1f}h ago" if backup['age_hours'] < 24 else f"{backup['age_hours']/24:.1f}d ago"
+                print(f"  • {backup['operation_name']}: {backup['file_size_mb']:.1f} MB, {age_str}")
+                print(f"    Path: {backup['path']}")
+            
+            if len(backups) > 10:
+                print(f"  ... and {len(backups) - 10} more backups")
+        
+        except Exception as e:
+            print(f"❌ Failed to list backups: {e}")
+    
+    def _create_backup(self) -> None:
+        """Create a backup"""
+        
+        print("\n💾 Create Backup")
+        
+        input_file = input("Enter file path to backup: ").strip()
+        
+        if not input_file or not Path(input_file).exists():
+            print("❌ File not found")
+            return
+        
+        description = input("Enter backup description (optional): ").strip()
+        
+        print(f"\n💾 Creating backup of: {input_file}")
+        
+        try:
+            # This would call the actual backup functionality
+            print("✅ Backup created successfully (placeholder)")
+        except Exception as e:
+            print(f"❌ Backup failed: {e}")
+    
+    def _restore_backup(self) -> None:
+        """Restore from backup"""
+        
+        print("\n🔄 Restore from Backup")
+        
+        backup_file = input("Enter backup file path: ").strip()
+        target_file = input("Enter target file path: ").strip()
+        
+        if not backup_file or not Path(backup_file).exists():
+            print("❌ Backup file not found")
+            return
+        
+        if not target_file:
+            print("❌ Target file path is required")
+            return
+        
+        print(f"\n🔄 Restoring from: {backup_file}")
+        print(f"📁 Target: {target_file}")
+        
+        confirm = input("⚠️  This will overwrite the target file. Continue? (y/N): ").strip().lower()
+        
+        if confirm in ['y', 'yes']:
+            try:
+                # This would call the actual restore functionality
+                print("✅ Restore completed successfully (placeholder)")
+            except Exception as e:
+                print(f"❌ Restore failed: {e}")
+        else:
+            print("❌ Restore cancelled")
+    
+    def _cleanup_backups(self) -> None:
+        """Cleanup old backups"""
+        
+        print("\n🧹 Cleanup Old Backups")
+        
+        days = input("Keep backups newer than how many days? (default: 30): ").strip()
+        
+        try:
+            days = int(days) if days else 30
+        except ValueError:
+            days = 30
+        
+        print(f"\n🧹 Cleaning up backups older than {days} days...")
+        
+        confirm = input("⚠️  This will permanently delete old backups. Continue? (y/N): ").strip().lower()
+        
+        if confirm in ['y', 'yes']:
+            try:
+                result = self.safety_manager.cleanup_old_backups()
+                if result.get('success'):
+                    print(f"✅ {result.get('message', 'Cleanup completed')}")
+                else:
+                    print(f"❌ Cleanup failed: {result.get('error', 'Unknown error')}")
+            except Exception as e:
+                print(f"❌ Cleanup failed: {e}")
+        else:
+            print("❌ Cleanup cancelled")
+    
+    def _show_interactive_help(self) -> None:
+        """Show interactive help"""
+        
+        print("\n❓ Interactive Help")
+        print("=" * 50)
+        
+        help_text = """
+MENU OPTIONS:
+
+1. 🔄 Process bookmarks
+   • Safe cleanup and enhancement of bookmark data
+   • AI-powered categorization and tagging
+   • Duplicate detection and removal
+
+2. 📥 Import from sources
+   • GitHub starred repositories
+   • Browser bookmarks (Chrome, Firefox, Safari)
+   • Linkwarden backup files
+
+3. 🧠 View learning statistics
+   • System performance metrics
+   • Learning progress and accuracy
+   • Configuration status
+
+4. ⚙️ Configuration
+   • View and edit configuration settings
+   • Manage safety thresholds
+   • Configure AI and learning options
+
+5. 📊 Generate reports
+   • Operation comparison reports
+   • Performance metrics
+   • Safety system status
+
+6. 🔍 Validate data
+   • Check data integrity
+   • Validate JSON structure
+   • Identify potential issues
+
+7. 💾 Backup & Recovery
+   • List available backups
+   • Create manual backups
+   • Restore from backups
+   • Cleanup old backups
+
+TIPS:
+• Use dry-run mode to preview changes
+• Enable verbose logging for detailed output
+• Create backups before major operations
+• Review learning statistics regularly
+        """
+        
+        print(help_text)
+
+
 def main():
     """Main entry point for CLI"""
     cli = MainCLI()
