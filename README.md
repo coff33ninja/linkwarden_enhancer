@@ -239,6 +239,18 @@ linkwarden-enhancer import --github \
 
 For a detailed configuration reference, see the **[Configuration Documentation](linkwarden_enhancer/docs/config.md)**.
 
+## 🚀 **Future-Proof and Extensible**
+
+The Linkwarden Enhancer is designed to be a universal bookmark management tool. While it currently has first-class support for Linkwarden, the architecture is built to be extended to support other bookmark managers and services in the future.
+
+**Planned Support:**
+
+- **Other Bookmark Managers:** Raindrop.io, Pocket, Instapaper, and more.
+- **Multiple Import/Export Formats:** Support for various import and export formats, including Netscape Bookmark File Format, JSON, CSV, and more.
+- **Conversion Utilities:** Tools for converting between different bookmark formats.
+
+This will allow you to use the Linkwarden Enhancer as a central hub for managing all your bookmarks, regardless of where they are stored.
+
 ## 🤝 **Contributing**
 
 1. Fork the repository
