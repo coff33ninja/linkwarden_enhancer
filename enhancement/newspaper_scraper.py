@@ -11,6 +11,11 @@ try:
     NEWSPAPER_AVAILABLE = True
 except ImportError:
     NEWSPAPER_AVAILABLE = False
+    # Create mock classes for type hints
+    class Article:
+        pass
+    class Config:
+        pass
 
 from enhancement.base_scraper import WebScraper, ScrapingResult
 from utils.logging_utils import get_logger
