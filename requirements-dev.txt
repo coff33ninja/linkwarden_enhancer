@@ -7,3 +7,4 @@ mypy>=0.910
 psutil
 safety
 bandit
+jsonchema
