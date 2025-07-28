@@ -220,13 +220,13 @@ def test_detailed_progress_tracker():
         print(f"   • Total duration: {summary['total_duration']:.2f}s")
         print(f"   • Total items: {summary['total_items_processed']}")
         
-        return True
+        assert True
         
     except Exception as e:
         print(f"❌ DetailedProgressTracker test failed: {e}")
         import traceback
         traceback.print_exc()
-        return False
+        assert False
 
 if __name__ == "__main__":
     print("🔬 Enhanced Progress Tracking and Learning Feedback Test Suite")
