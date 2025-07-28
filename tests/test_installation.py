@@ -11,30 +11,26 @@ from pathlib import Path
 def test_python_version():
     """Test Python version compatibility"""
     version = sys.version_info
-    if version.major < 3 or (version.major == 3 and version.minor < 8):
-        print(f"❌ Python version: {version.major}.{version.minor}.{version.micro} (requires 3.8+)")
-        return False
-    print(f"✅ Python version: {version.major}.{version.minor}.{version.micro}")
-    return True
+    assert version.major >= 3 and version.minor >= 8, "Python version must be 3.8+"
 
 
 def test_package_import():
     """Test if the package can be imported"""
     try:
-        import linkwarden_enhancer
-        print(f"✅ Package import: linkwarden_enhancer v{linkwarden_enhancer.__version__}")
-        return True
+        import main
+        print(f"✅ Main script import: main.py")
+        assert True
     except ImportError as e:
-        print(f"❌ Package import failed: {e}")
-        return False
+        print(f"❌ Main script import failed: {e}")
+        assert False
 
 
 def test_core_modules():
     """Test if core modules can be imported"""
     modules = [
-        'linkwarden_enhancer.config',
-        'linkwarden_enhancer.utils',
-        'linkwarden_enhancer.main',
+        'config',
+        'utils',
+        'main',
     ]
     
     failed_modules = []
@@ -47,7 +43,7 @@ def test_core_modules():
             print(f"❌ Module: {module_name} - {e}")
             failed_modules.append(module_name)
     
-    return len(failed_modules) == 0
+    assert len(failed_modules) == 0
 
 
 def test_dependencies():
@@ -72,7 +68,7 @@ def test_dependencies():
             print(f"❌ Dependency: {display_name}")
             failed_deps.append(display_name)
     
-    return len(failed_deps) == 0
+    assert len(failed_deps) == 0
 
 
 def test_optional_dependencies():
@@ -107,13 +103,13 @@ def test_directories():
 def test_configuration():
     """Test configuration loading"""
     try:
-        from linkwarden_enhancer.config import load_config
+        from config.settings import load_config
         config = load_config()
         print("✅ Configuration: Loaded successfully")
-        return True
+        assert True
     except Exception as e:
         print(f"❌ Configuration: Failed to load - {e}")
-        return False
+        assert False
 
 
 def main():

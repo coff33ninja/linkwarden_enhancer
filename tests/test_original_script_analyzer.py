@@ -7,7 +7,7 @@ import tempfile
 import shutil
 from pathlib import Path
 
-from linkwarden_enhancer.reference.original_script_analyzer import (
+from reference.original_script_analyzer import (
     OriginalScriptAnalyzer, ScriptAnalysisResult
 )
 

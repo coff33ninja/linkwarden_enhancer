@@ -3,7 +3,8 @@
 import sys
 from pathlib import Path
 
-from .. import __version__, __author__
+__version__ = "1.0.0"
+__author__ = "DJ"
 
 
 def get_version_info() -> str:

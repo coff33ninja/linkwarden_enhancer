@@ -23,7 +23,7 @@ jobs:
 
     - name: Run tests
       run: |
-        python -m pytest tests/ --cov=linkwarden_enhancer
+        python -m pytest tests/
 
     - name: Create source archive
       run: |

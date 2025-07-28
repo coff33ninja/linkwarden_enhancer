@@ -8,12 +8,12 @@ import sys
 import time
 from pathlib import Path
 
-# Add the project root to Python path
-sys.path.insert(0, str(Path(__file__).parent))
+from importers.github_importer import GitHubImporter
+from config.settings import load_config
 
-from linkwarden_enhancer.importers.github_importer import GitHubImporter
-from linkwarden_enhancer.config.settings import load_config
+import pytest
 
+@pytest.mark.skip(reason="Requires GitHub token")
 def test_github_cache():
     """Test GitHub caching functionality"""
     
@@ -114,13 +114,13 @@ def test_github_cache():
         
         print("\n🎉 GitHub cache testing completed!")
         
-        return True
+        assert True
         
     except Exception as e:
         print(f"\n❌ Test failed: {e}")
         import traceback
         traceback.print_exc()
-        return False
+        assert False
 
 if __name__ == "__main__":
     success = test_github_cache()
