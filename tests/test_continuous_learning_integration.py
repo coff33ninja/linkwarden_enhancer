@@ -8,8 +8,8 @@ import shutil
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from linkwarden_enhancer.intelligence.continuous_learner import ContinuousLearner
-from linkwarden_enhancer.intelligence.adaptive_intelligence import AdaptiveIntelligence, FeedbackType
+from intelligence.continuous_learner import ContinuousLearner
+from intelligence.adaptive_intelligence import AdaptiveIntelligence, FeedbackType
 
 
 class TestContinuousLearningIntegration(unittest.TestCase):

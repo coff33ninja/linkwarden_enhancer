@@ -4,12 +4,8 @@
 import sys
 from pathlib import Path
 
-# Add the current directory to Python path
-current_dir = Path(__file__).parent
-sys.path.insert(0, str(current_dir))
-
-from linkwarden_enhancer.importers.linkwarden_importer import LinkwardenImporter
-from linkwarden_enhancer.config.settings import load_config
+from importers.linkwarden_importer import LinkwardenImporter
+from config.settings import load_config
 
 def main():
     # Load default config

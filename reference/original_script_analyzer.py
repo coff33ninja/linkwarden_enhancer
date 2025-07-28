@@ -12,7 +12,7 @@ from dataclasses import dataclass, field
 from collections import defaultdict, Counter
 import inspect
 
-from ..utils.logging_utils import get_logger
+from utils.logging_utils import get_logger
 
 logger = get_logger(__name__)
 
