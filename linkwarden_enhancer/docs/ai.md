@@ -1,6 +1,6 @@
 # AI Module
 
-The `ai` module contains all the artificial intelligence and machine learning components of the Linkwarden Enhancer. This module is responsible for tasks suchs as content analysis, similarity detection, tag prediction, and clustering.
+The `ai` module contains all the artificial intelligence and machine learning components of the Linkwarden Enhancer. This module is responsible for tasks **such** as content analysis, similarity detection, tag prediction, and clustering.
 
 ## Modules
 
