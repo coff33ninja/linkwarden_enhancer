@@ -2,6 +2,19 @@
 
 A comprehensive, AI-powered bookmark management system that transforms your Linkwarden bookmarks into an intelligent, continuously learning organization tool. Built with enterprise-grade safety systems, advanced machine learning capabilities, multi-source import functionality, and adaptive intelligence that evolves with your browsing patterns.
 
+## 📖 **Documentation**
+
+For detailed documentation on all modules, classes, and functions, please see the `docs` directory.
+
+- **[CLI Reference](linkwarden_enhancer/docs/cli.md)**
+- **[Core System](linkwarden_enhancer/docs/core.md)**
+- **[AI & Machine Learning](linkwarden_enhancer/docs/ai.md)**
+- **[Intelligence System](linkwarden_enhancer/docs/intelligence.md)**
+- **[Enhancement Engine](linkwarden_enhancer/docs/enhancement.md)**
+- **[Importers](linkwarden_enhancer/docs/importers.md)**
+- **[Reporting](linkwarden_enhancer/docs/reporting.md)**
+- **[Utilities](linkwarden_enhancer/docs/utils.md)**
+
 ## 🚀 Core Features
 
 ### 🛡️ **Enterprise-Grade Safety System**
@@ -157,6 +170,8 @@ ollama pull llama2  # or your preferred model
 ## 🚀 **Quick Start**
 
 ### Command-Line Interface
+For a detailed CLI reference, see the **[CLI Documentation](linkwarden_enhancer/docs/cli.md)**.
+
 ```bash
 # Interactive menu for guided operations
 linkwarden-enhancer menu
@@ -176,247 +191,6 @@ linkwarden-enhancer import --github \
   --github-token YOUR_TOKEN \
   --github-username YOUR_USERNAME \
   --output github_bookmarks.json
-
-# Force refresh GitHub data (ignore cache)
-linkwarden-enhancer import --github \
-  --github-token YOUR_TOKEN \
-  --github-username YOUR_USERNAME \
-  --output github_bookmarks.json \
-  --force-refresh
-
-# Validate data integrity
-linkwarden-enhancer validate input.json --detailed-report
-
-# Generate comprehensive reports
-linkwarden-enhancer report operation before.json after.json \
-  --format html --format json
-```
-
-### Python Module Usage
-```bash
-# Direct module execution with legacy CLI
-python -m linkwarden_enhancer process input.json output.json \
-  --ai-enabled \
-  --enable-clustering \
-  --enable-smart-tagging \
-  --similarity-threshold 0.85 \
-  --max-clusters 50 \
-  --verbose
-
-# Import and merge multiple sources
-python -m linkwarden_enhancer process input.json output.json \
-  --import-github \
-  --import-browser bookmarks.html \
-  --enable-scraping \
-  --generate-report
-```
-
-### Advanced Operations
-```bash
-# Backup and recovery operations
-linkwarden-enhancer backup create input.json --description "Pre-enhancement backup"
-linkwarden-enhancer backup list --operation enhancement
-linkwarden-enhancer backup restore backup_file.json.gz target.json
-linkwarden-enhancer backup cleanup --days 30
-
-# Intelligence system management
-linkwarden-enhancer intelligence export --output intelligence_data.json \
-  --components dictionary learning adaptation
-linkwarden-enhancer intelligence import intelligence_data.json --incremental
-linkwarden-enhancer intelligence train training_data.json --incremental
-
-# Cache management operations
-linkwarden-enhancer cache info --source github
-linkwarden-enhancer cache clear --source github --confirm
-linkwarden-enhancer cache refresh --source github --github-username USER
-
-# Dead link detection and management
-linkwarden-enhancer check-dead-links input.json --output dead_links_report.json
-linkwarden-enhancer check-dead-links input.json --organize --create-collections
-linkwarden-enhancer check-dead-links input.json --concurrent 20 --timeout 15 --format html
-
-# Comprehensive statistics and monitoring
-linkwarden-enhancer stats --learning --intelligence --performance --safety
-linkwarden-enhancer stats --all --export comprehensive_stats.json
-
-# Help and documentation
-linkwarden-enhancer help --topics
-linkwarden-enhancer help getting_started
-linkwarden-enhancer help safety_features --quick
-```
-
-## 📖 **Complete CLI Reference**
-
-### **Main Commands**
-
-#### **Process Command**
-```bash
-linkwarden-enhancer process INPUT_FILE OUTPUT_FILE [OPTIONS]
-
-# Core processing options
---enable-scraping              # Enable web scraping for metadata
---enable-ai-analysis          # Enable AI content analysis
---enable-learning             # Enable continuous learning
---enable-clustering           # Enable bookmark clustering
---enable-similarity-detection # Enable duplicate detection
---enable-smart-tagging        # Enable AI tag suggestions
---enable-network-analysis     # Enable relationship mapping
-
-# Import integration
---import-github               # Import GitHub repositories
---import-browser FILE         # Import browser bookmarks
---github-token TOKEN          # GitHub API token
---github-username USER        # GitHub username
-
-# AI configuration
---ollama-model MODEL          # Ollama model (default: llama2)
---similarity-threshold FLOAT  # Similarity threshold (default: 0.85)
---max-clusters INT           # Maximum clusters (default: 50)
---confidence-threshold FLOAT  # AI confidence threshold (default: 0.7)
-
-# Learning options
---enable-dictionary-learning  # Enable smart dictionary learning
---dictionary-update-mode MODE # incremental|full|none
---learning-rate FLOAT        # Learning rate (default: 0.1)
---feedback-weight FLOAT      # User feedback weight (default: 1.0)
-
-# Safety options
---max-deletion-percent FLOAT # Max deletion percentage (default: 10%)
---safety-pause-threshold INT # Pause after N changes (default: 100)
---auto-approve-low-risk      # Auto-approve safe changes
-
-# Output options
---generate-report            # Generate processing report
---report-format FORMAT       # json|html|csv|md
---export-learning-data       # Export learning data
---show-suggestions-summary   # Show AI suggestions summary
-```
-
-#### **Import Command**
-```bash
-linkwarden-enhancer import [OPTIONS] --output OUTPUT_FILE
-
-# GitHub import
---github                     # Import from GitHub
---github-starred            # Import starred repos (default: true)
---github-owned              # Import owned repositories
---max-repos INT             # Maximum repos to import
-
-# Browser import
---browser FILE              # Browser bookmarks file
---linkwarden-backup FILE    # Linkwarden backup file
-
-# Merging options
---merge-with FILE           # Existing file to merge with
-```
-
-#### **Validation Command**
-```bash
-linkwarden-enhancer validate INPUT_FILE [OPTIONS]
-
---fix-issues                # Attempt to fix validation issues
---detailed-report           # Generate detailed validation report
-```
-
-#### **Report Command**
-```bash
-# Operation comparison report
-linkwarden-enhancer report operation BEFORE_FILE AFTER_FILE [OPTIONS]
---operation-name NAME       # Name of the operation
-
-# Period activity report
-linkwarden-enhancer report period [OPTIONS]
---hours INT                 # Time period in hours (default: 24)
-
-# Performance metrics report
-linkwarden-enhancer report performance [OPTIONS]
---export-metrics            # Export raw metrics data
-
-# Common report options
---format FORMAT             # json|html|csv|md (can specify multiple)
---output-dir DIR            # Output directory (default: reports)
-```
-
-#### **Statistics Command**
-```bash
-linkwarden-enhancer stats [OPTIONS]
-
---learning                  # Show learning statistics
---intelligence             # Show intelligence system stats
---performance              # Show performance statistics
---safety                   # Show safety system statistics
---all                      # Show all statistics
---export FILE              # Export statistics to file
-```
-
-#### **Dead Link Detection Command**
-```bash
-# Check for dead links
-linkwarden-enhancer check-dead-links INPUT_FILE [OPTIONS]
-
-# Detection options
---concurrent INT            # Concurrent requests (default: 10)
---timeout INT              # Request timeout in seconds (default: 10)
---max-retries INT          # Maximum retry attempts (default: 2)
---retry-delay FLOAT        # Delay between retries (default: 1.0)
-
-# Output options
---output FILE              # Save detailed results to file
---format FORMAT            # Report format: json|html (default: json)
---organize                 # Organize bookmarks by moving dead links
---create-collections       # Create separate collections for dead/suspicious links
-
-# Collection naming
---dead-collection-name TEXT     # Name for dead links collection (default: "🔗 Dead Links")
---suspicious-collection-name TEXT # Name for suspicious links collection (default: "⚠️ Suspicious Links")
-```
-
-#### **Backup Command**
-```bash
-# Create backup
-linkwarden-enhancer backup create INPUT_FILE [OPTIONS]
---description TEXT          # Backup description
-
-# List backups
-linkwarden-enhancer backup list [OPTIONS]
---operation NAME            # Filter by operation name
-
-# Restore backup
-linkwarden-enhancer backup restore BACKUP_FILE TARGET_FILE
-
-# Cleanup old backups
-linkwarden-enhancer backup cleanup [OPTIONS]
---days INT                  # Keep backups newer than N days (default: 30)
-```
-
-#### **Intelligence Command**
-```bash
-# Export intelligence data
-linkwarden-enhancer intelligence export --output FILE [OPTIONS]
---components LIST           # dictionary|learning|adaptation
---description TEXT          # Export description
-
-# Import intelligence data
-linkwarden-enhancer intelligence import INPUT_FILE [OPTIONS]
---components LIST           # Components to import
-
-# Train intelligence system
-linkwarden-enhancer intelligence train TRAINING_DATA [OPTIONS]
---incremental              # Incremental training (preserve existing)
-```
-
-### **Global Options**
-```bash
--v, --verbose              # Enable verbose logging
---debug                    # Enable debug mode with detailed logging
--c, --config FILE          # Custom configuration file
---dry-run                  # Perform dry run without changes
---interactive              # Enable interactive mode
---progress-detail LEVEL    # minimal|standard|detailed
---log-file FILE            # Path to log file
---component-debug LIST     # Enable debug for specific components
---learning-feedback        # Enable learning feedback display
---performance-metrics      # Enable detailed performance metrics
 ```
 
 ## 📊 **Comprehensive Capabilities**
@@ -463,212 +237,19 @@ linkwarden-enhancer intelligence train TRAINING_DATA [OPTIONS]
 
 ## 🔧 **Configuration**
 
-### Complete Configuration Reference
-```python
-# config/settings.py or custom config file
-{
-    'safety': {
-        'dry_run_mode': False,
-        'max_deletion_percentage': 10.0,
-        'max_items_deleted': 100,
-        'backup_retention_count': 5,
-        'require_confirmation_threshold': 50,
-        'enable_real_time_monitoring': True,
-        'checkpoint_frequency': 1000,
-    },
-    
-    'ai': {
-        'enable_ai_analysis': True,
-        'ollama_model': 'llama2',
-        'ollama_host': 'localhost:11434',
-        'similarity_threshold': 0.85,
-        'max_clusters': 50,
-        'enable_content_analysis': True,
-        'enable_smart_tagging': True,
-        'enable_duplicate_detection': True,
-        'enable_clustering': True,
-        'batch_size': 100,
-        'use_gpu': False,
-    },
-    
-    'intelligence': {
-        'enable_smart_dictionaries': True,
-        'enable_continuous_learning': True,
-        'pattern_strength_threshold': 0.7,
-        'learning_rate': 0.1,
-        'max_learned_patterns': 10000,
-    },
-    
-    'github': {
-        'token': os.getenv('GITHUB_TOKEN'),
-        'username': os.getenv('GITHUB_USERNAME'),
-        'import_starred': True,
-        'import_owned_repos': True,
-        'rate_limit_requests_per_hour': 5000,
-        'cache': {
-            'enabled': True,
-            'ttl_hours': 24,  # Cache for 24 hours
-            'force_refresh': False,
-        },
-    },
-    
-    'scraping': {
-        'enable_scraping': True,
-        'timeout_seconds': 30,
-        'max_retries': 3,
-        'retry_delay': 1.0,
-        'user_agent': 'Linkwarden-Enhancer/0.1.0',
-        'enable_javascript': False,
-        'cache_enabled': True,
-        'cache_ttl_hours': 24,
-    },
-    
-    'performance': {
-        'max_workers': 4,
-        'chunk_size': 1000,
-        'memory_limit_mb': 1024,
-        'enable_parallel_processing': True,
-    },
-    
-    'logging': {
-        'level': 'INFO',
-        'file': 'linkwarden_enhancer.log',
-        'max_file_size_mb': 10,
-        'backup_count': 5,
-    }
-}
-```
+For a detailed configuration reference, see the **[Configuration Documentation](linkwarden_enhancer/docs/config.md)**.
 
-### Environment Variables
-```bash
-# GitHub Integration
-export GITHUB_TOKEN="your_github_token_here"
-export GITHUB_USERNAME="your_github_username"
+## 🚀 **Future-Proof and Extensible**
 
-# Ollama Configuration
-export OLLAMA_HOST="localhost:11434"
-export OLLAMA_MODEL="llama2"
+The Linkwarden Enhancer is designed to be a universal bookmark management tool. While it currently has first-class support for Linkwarden, the architecture is built to be extended to support other bookmark managers and services in the future.
 
-# Performance Tuning
-export MAX_WORKERS="4"
-export MEMORY_LIMIT_MB="1024"
+**Planned Support:**
 
-# Logging
-export LOG_LEVEL="INFO"
-export LOG_FILE="linkwarden_enhancer.log"
-```
+- **Other Bookmark Managers:** Raindrop.io, Pocket, Instapaper, and more.
+- **Multiple Import/Export Formats:** Support for various import and export formats, including Netscape Bookmark File Format, JSON, CSV, and more.
+- **Conversion Utilities:** Tools for converting between different bookmark formats.
 
-### Intelligent Caching System
-
-The system includes a sophisticated caching mechanism to avoid unnecessary API calls and improve performance:
-
-#### **GitHub Data Caching**
-- **Automatic Caching**: GitHub repository data is automatically cached after first import
-- **Configurable TTL**: Cache expires after 24 hours by default (configurable)
-- **Smart Validation**: Cache validity is checked before use
-- **Fallback Support**: Falls back to cache when API rate limits are exceeded
-- **Selective Refresh**: Force refresh specific data sources when needed
-
-#### **Cache Management Commands**
-```bash
-# View cache status
-linkwarden-enhancer cache info --source github
-
-# Clear all cached data
-linkwarden-enhancer cache clear --source github --confirm
-
-# Force refresh cached data
-linkwarden-enhancer cache refresh --source github --github-username USER
-
-# Import with cache control
-linkwarden-enhancer import --github --force-refresh  # Ignore cache
-linkwarden-enhancer import --github --disable-cache  # Disable caching
-```
-
-#### **Cache Configuration**
-```python
-'github': {
-    'cache': {
-        'enabled': True,           # Enable/disable caching
-        'ttl_hours': 24,          # Cache time-to-live in hours
-        'force_refresh': False,    # Always refresh (ignore cache)
-    }
-}
-```
-
-#### **Benefits**
-- **Faster Imports**: Subsequent imports are 10-50x faster when using cache
-- **Rate Limit Protection**: Reduces API calls to stay within GitHub limits
-- **Offline Capability**: Can work with cached data when API is unavailable
-- **Bandwidth Savings**: Reduces network usage for repeated operations
-
-## 📈 **Learning & Adaptation**
-
-The system employs sophisticated machine learning techniques for continuous improvement:
-
-### **Adaptive Intelligence Features**
-- **User Behavior Modeling**: Builds personalized models of your categorization preferences
-- **Feedback Integration**: Learns from accepted/rejected suggestions to improve accuracy
-- **Pattern Recognition**: Identifies recurring themes and organization structures in your data
-- **Confidence Scoring**: All suggestions include confidence metrics for transparency
-- **Domain Adaptation**: Specialized learning for different content domains (gaming, dev, research)
-- **Temporal Learning**: Adapts to changing interests and browsing patterns over time
-
-### **Machine Learning Components**
-- **Content Analysis**: TF-IDF vectorization and topic modeling using Latent Dirichlet Allocation
-- **Clustering**: K-means clustering for automatic bookmark organization
-- **Similarity Detection**: Sentence transformers for semantic similarity and duplicate detection
-- **Classification**: Multi-class classification for category and tag prediction
-- **Network Analysis**: Graph-based analysis of bookmark relationships and connections
-- **Sentiment Analysis**: Content sentiment scoring for better categorization
-
-### **Learning Data Sources**
-- **Existing Bookmarks**: Analyzes your current organization patterns and preferences
-- **User Interactions**: Learns from your corrections, modifications, and feedback
-- **Content Analysis**: Extracts patterns from bookmark content and metadata
-- **Cross-Source Correlation**: Correlates GitHub stars with bookmark interests
-- **Usage Patterns**: Learns from bookmark access frequency and modification history
-- **Domain Expertise**: Leverages specialized dictionaries for different content areas
-
-## 🛡️ **Enterprise-Grade Safety Guarantees**
-
-### **Data Protection**
-- **Original Data Preservation**: Your source files are never modified directly
-- **Multi-Tier Backup System**: Automatic, compressed backups with configurable retention
-- **Integrity Verification**: Comprehensive schema validation and consistency checking
-- **Atomic Operations**: All-or-nothing changes with automatic rollback on failure
-- **Change Tracking**: Detailed audit trails for all modifications and operations
-
-### **Recovery & Rollback**
-- **Intelligent Recovery**: Automatic damage assessment and selective restoration
-- **Point-in-Time Recovery**: Restore to any previous backup with verification
-- **Partial Recovery**: Selective restoration of specific data components
-- **Recovery Verification**: Automatic integrity checks after restoration
-- **Recovery Statistics**: Detailed metrics on recovery operations and success rates
-
-### **Operational Safety**
-- **Dry-Run Mode**: Complete preview of all changes before execution
-- **Safety Thresholds**: Configurable limits for deletions and bulk modifications
-- **Real-Time Monitoring**: Live progress tracking with safety alerts
-- **Checkpoint System**: Automatic save points during long operations
-- **User Confirmation**: Interactive prompts for high-risk operations
-- **Emergency Stop**: Graceful cancellation with state preservation
-
-### **Validation & Monitoring**
-- **Schema Validation**: Ensures data conforms to expected formats
-- **Consistency Checking**: Verifies referential integrity and data relationships
-- **Orphaned Reference Detection**: Identifies and reports broken links
-- **Performance Monitoring**: Tracks resource usage and operation efficiency
-- **Error Recovery**: Automatic handling of transient failures with retry logic
-- **Safety Statistics**: Comprehensive reporting on all safety operations
-
-## 📚 **Documentation**
-
-- [Installation Guide](docs/installation.md)
-- [Configuration Reference](docs/configuration.md)
-- [API Documentation](docs/api.md)
-- [Development Guide](docs/development.md)
-- [Troubleshooting](docs/troubleshooting.md)
+This will allow you to use the Linkwarden Enhancer as a central hub for managing all your bookmarks, regardless of where they are stored.
 
 ## 🤝 **Contributing**
 
@@ -681,44 +262,3 @@ The system employs sophisticated machine learning techniques for continuous impr
 ## 📄 **License**
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 **Acknowledgments**
-
-- Built as an enhancement to the original Linkwarden bookmark cleanup script
-- Inspired by the need for intelligent bookmark organization
-- Uses various open-source libraries for AI and machine learning capabilities
-
-## 🔮 **Advanced Features & Roadmap**
-
-### **Current Advanced Features**
-- **Interactive CLI**: Menu-driven interface with guided operations
-- **Component Debugging**: Granular logging control for specific system components  
-- **Performance Metrics**: Detailed execution time and resource usage tracking
-- **Learning Feedback**: Real-time display of learning progress and model improvements
-- **Specialized Analyzers**: Domain-specific analysis for gaming, development, and research content
-- **Network Analysis**: Bookmark relationship mapping and connection discovery
-- **Adaptive Dictionaries**: Self-updating categorization dictionaries based on user patterns
-
-### **Planned Enhancements**
-- [ ] **Vector Database Integration**: ChromaDB support for advanced semantic search
-- [ ] **Transformer Models**: Hugging Face integration for state-of-the-art NLP
-- [ ] **Browser Extension**: Real-time bookmark enhancement and categorization
-- [ ] **Web Dashboard**: Interactive web interface for bookmark management and analytics
-- [ ] **API Server**: RESTful API for integration with other bookmark services
-- [ ] **Collaborative Features**: Shared dictionaries and community-driven categorization
-- [ ] **Mobile Integration**: Cross-platform bookmark synchronization
-- [ ] **Advanced Visualizations**: Interactive graphs and charts for bookmark analytics
-
-### **Research & Development**
-- [ ] **Federated Learning**: Privacy-preserving collaborative intelligence
-- [ ] **Multi-Modal Analysis**: Image and video content understanding
-- [ ] **Temporal Analysis**: Time-series analysis of bookmark patterns
-- [ ] **Recommendation Engine**: AI-powered bookmark discovery and suggestions
-- [ ] **Natural Language Interface**: Chat-based bookmark management
-- [ ] **Integration Ecosystem**: Plugins for popular productivity tools
-
----
-
-**Transform your bookmarks from chaos to intelligence. Every link you add makes the system smarter.**
-
-*Built with enterprise-grade safety, powered by cutting-edge AI, designed for the modern knowledge worker.*
