@@ -12,9 +12,9 @@ try:
 except ImportError:
     NEWSPAPER_AVAILABLE = False
 
-from .base_scraper import WebScraper, ScrapingResult
-from ..utils.logging_utils import get_logger
-from ..utils.text_utils import TextUtils
+from enhancement.base_scraper import WebScraper, ScrapingResult
+from utils.logging_utils import get_logger
+from utils.text_utils import TextUtils
 
 logger = get_logger(__name__)
 

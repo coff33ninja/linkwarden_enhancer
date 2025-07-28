@@ -4,8 +4,8 @@ import json
 from typing import Dict, List, Any, Optional, Tuple
 from datetime import datetime
 
-from ..intelligence.adaptive_intelligence import AdaptiveIntelligence, FeedbackType
-from ..utils.logging_utils import get_logger
+from intelligence.adaptive_intelligence import AdaptiveIntelligence, FeedbackType
+from utils.logging_utils import get_logger
 
 logger = get_logger(__name__)
 

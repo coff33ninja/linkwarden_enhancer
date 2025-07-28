@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Dict, Any, Optional
 from dotenv import load_dotenv
 
-from .defaults import DEFAULT_CONFIG
+from config.defaults import DEFAULT_CONFIG
 
 
 def load_config(config_file: Optional[str] = None) -> Dict[str, Any]:

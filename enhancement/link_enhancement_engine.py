@@ -6,23 +6,23 @@ from dataclasses import dataclass, field
 from urllib.parse import urlparse
 from pathlib import Path
 
-from .base_scraper import WebScraper, ScrapingResult
-from .beautifulsoup_scraper import BeautifulSoupScraper
-from .scraping_cache import ScrapingCache, ConcurrentScraper
+from enhancement.base_scraper import WebScraper, ScrapingResult
+from enhancement.beautifulsoup_scraper import BeautifulSoupScraper
+from enhancement.scraping_cache import ScrapingCache, ConcurrentScraper
 
 try:
-    from .selenium_scraper import SeleniumScraper
+    from enhancement.selenium_scraper import SeleniumScraper
     SELENIUM_AVAILABLE = True
 except ImportError:
     SELENIUM_AVAILABLE = False
 
 try:
-    from .newspaper_scraper import NewspaperScraper
+    from enhancement.newspaper_scraper import NewspaperScraper
     NEWSPAPER_AVAILABLE = True
 except ImportError:
     NEWSPAPER_AVAILABLE = False
-from ..utils.logging_utils import get_logger
-from ..data_models import EnhancementReport
+from utils.logging_utils import get_logger
+from data_models import EnhancementReport
 
 logger = get_logger(__name__)
 

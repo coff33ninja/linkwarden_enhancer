@@ -11,8 +11,8 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-from ..utils.logging_utils import get_logger
-from ..utils.url_utils import UrlUtils
+from utils.logging_utils import get_logger
+from utils.url_utils import UrlUtils
 
 logger = get_logger(__name__)
 

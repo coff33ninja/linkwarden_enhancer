@@ -14,9 +14,9 @@ try:
 except ImportError:
     SKLEARN_AVAILABLE = False
 
-from ..utils.logging_utils import get_logger
-from ..utils.text_utils import TextUtils
-from ..utils.url_utils import UrlUtils
+from utils.logging_utils import get_logger
+from utils.text_utils import TextUtils
+from utils.url_utils import UrlUtils
 
 logger = get_logger(__name__)
 

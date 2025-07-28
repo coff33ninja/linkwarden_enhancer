@@ -6,8 +6,8 @@ from typing import Dict, List, Any, Optional, Tuple
 from pathlib import Path
 from collections import defaultdict, Counter
 
-from ..utils.logging_utils import get_logger
-from ..data_models import ValidationResult
+from utils.logging_utils import get_logger
+from data_models import ValidationResult
 
 logger = get_logger(__name__)
 

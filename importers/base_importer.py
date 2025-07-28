@@ -2,8 +2,8 @@
 
 from abc import ABC, abstractmethod
 from typing import List, Dict, Any, Optional
-from ..data_models import ImportResult
-from ..utils.logging_utils import get_logger
+from data_models import ImportResult
+from utils.logging_utils import get_logger
 
 logger = get_logger(__name__)
 

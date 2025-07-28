@@ -13,11 +13,11 @@ try:
 except ImportError:
     GITHUB_AVAILABLE = False
 
-from .base_importer import BaseImporter
-from ..data_models import ImportResult, GitHubBookmark
-from ..utils.logging_utils import get_logger
-from ..utils.text_utils import TextUtils
-from ..utils.json_handler import JsonHandler
+from importers.base_importer import BaseImporter
+from data_models import ImportResult, GitHubBookmark
+from utils.logging_utils import get_logger
+from utils.text_utils import TextUtils
+from utils.json_handler import JsonHandler
 
 logger = get_logger(__name__)
 

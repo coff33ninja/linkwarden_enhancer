@@ -6,8 +6,8 @@ from collections import defaultdict, Counter
 from dataclasses import dataclass
 from datetime import datetime
 
-from ..utils.logging_utils import get_logger
-from ..data_models import IntegrityResult
+from utils.logging_utils import get_logger
+from data_models import IntegrityResult
 
 logger = get_logger(__name__)
 

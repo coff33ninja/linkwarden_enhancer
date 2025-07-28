@@ -4,7 +4,7 @@ import re
 from urllib.parse import urlparse, urljoin
 from typing import Optional, List
 
-from .logging_utils import get_logger
+from utils.logging_utils import get_logger
 
 logger = get_logger(__name__)
 

@@ -9,8 +9,8 @@ from pathlib import Path
 from datetime import datetime, timedelta
 from dataclasses import dataclass
 
-from ..utils.logging_utils import get_logger
-from ..utils.file_utils import FileUtils
+from utils.logging_utils import get_logger
+from utils.file_utils import FileUtils
 
 logger = get_logger(__name__)
 

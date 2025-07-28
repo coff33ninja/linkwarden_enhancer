@@ -8,10 +8,10 @@ from pathlib import Path
 from datetime import datetime
 from dataclasses import dataclass, field
 
-from .dictionary_manager import SmartDictionaryManager
-from .continuous_learner import ContinuousLearner
-from .adaptive_intelligence import AdaptiveIntelligence
-from ..utils.logging_utils import get_logger
+from intelligence.dictionary_manager import SmartDictionaryManager
+from intelligence.continuous_learner import ContinuousLearner
+from intelligence.adaptive_intelligence import AdaptiveIntelligence
+from utils.logging_utils import get_logger
 
 logger = get_logger(__name__)
 

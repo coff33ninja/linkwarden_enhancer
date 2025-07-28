@@ -104,6 +104,20 @@ class ImportResult:
 
 
 @dataclass
+class LinkwardenBookmark:
+    """Linkwarden bookmark data model"""
+    id: Optional[int] = None
+    name: str = ""
+    url: str = ""
+    description: str = ""
+    tags: List[str] = field(default_factory=list)
+    collection: Optional[str] = None
+    metadata: Dict[str, Any] = field(default_factory=dict)
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None
+
+
+@dataclass
 class GitHubBookmark:
     """GitHub repository converted to bookmark format"""
     name: str

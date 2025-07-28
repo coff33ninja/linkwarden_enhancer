@@ -1,10 +1,10 @@
 """Linkwarden backup JSON importer"""
 
 from typing import List, Dict, Any
-from .base_importer import BaseImporter
-from ..data_models import ImportResult
-from ..utils.json_handler import JsonHandler
-from ..utils.logging_utils import get_logger
+from importers.base_importer import BaseImporter
+from data_models import ImportResult
+from utils.json_handler import JsonHandler
+from utils.logging_utils import get_logger
 
 logger = get_logger(__name__)
 

@@ -1,10 +1,10 @@
 """Utility modules for Linkwarden Enhancer"""
 
-from .logging_utils import setup_logging
-from .json_handler import JsonHandler
-from .url_utils import UrlUtils
-from .text_utils import TextUtils
-from .file_utils import FileUtils
+from utils.logging_utils import setup_logging
+from utils.json_handler import JsonHandler
+from utils.url_utils import UrlUtils
+from utils.text_utils import TextUtils
+from utils.file_utils import FileUtils
 
 __all__ = [
     'setup_logging',

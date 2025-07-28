@@ -1,10 +1,10 @@
 """Intelligence modules for smart categorization and learning"""
 
-from .dictionary_manager import SmartDictionaryManager
-from .category_dictionary import CategoryDictionary
-from .tag_dictionary import TagDictionary
-from .pattern_learner import PatternLearner
-from .domain_classifier import DomainClassifier
+from intelligence.dictionary_manager import SmartDictionaryManager
+from intelligence.category_dictionary import CategoryDictionary
+from intelligence.tag_dictionary import TagDictionary
+from intelligence.pattern_learner import PatternLearner
+from intelligence.domain_classifier import DomainClassifier
 
 __all__ = [
     'SmartDictionaryManager',

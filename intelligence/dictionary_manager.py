@@ -5,11 +5,11 @@ from typing import Dict, List, Any, Tuple, Optional
 from pathlib import Path
 from datetime import datetime
 
-from .category_dictionary import CategoryDictionary
-from .tag_dictionary import TagDictionary
-from .pattern_learner import PatternLearner
-from .domain_classifier import DomainClassifier
-from ..utils.logging_utils import get_logger
+from intelligence.category_dictionary import CategoryDictionary
+from intelligence.tag_dictionary import TagDictionary
+from intelligence.pattern_learner import PatternLearner
+from intelligence.domain_classifier import DomainClassifier
+from utils.logging_utils import get_logger
 
 logger = get_logger(__name__)
 

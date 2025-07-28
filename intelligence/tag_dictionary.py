@@ -3,9 +3,9 @@
 from typing import Dict, List, Set, Tuple, Optional, Any
 from collections import defaultdict, Counter
 
-from ..utils.logging_utils import get_logger
-from ..utils.text_utils import TextUtils
-from ..utils.url_utils import UrlUtils
+from utils.logging_utils import get_logger
+from utils.text_utils import TextUtils
+from utils.url_utils import UrlUtils
 
 logger = get_logger(__name__)
 

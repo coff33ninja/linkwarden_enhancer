@@ -802,9 +802,9 @@ Examples:
     def _execute_process_with_detailed_tracking(self, args, phases, learning_feedback, performance_metrics):
         """Execute process with detailed phase tracking and learning feedback"""
         
-        from ..intelligence.intelligence_manager import IntelligenceManager
-        from ..intelligence.continuous_learner import ContinuousLearner
-        from ..intelligence.adaptive_intelligence import AdaptiveIntelligence
+        from intelligence.intelligence_manager import IntelligenceManager
+        from intelligence.continuous_learner import ContinuousLearner
+        from intelligence.adaptive_intelligence import AdaptiveIntelligence
         
         # Initialize intelligence components for learning feedback
         intelligence_manager = None
@@ -900,7 +900,7 @@ Examples:
                 # Handle GitHub import
                 if getattr(args, 'import_github', False):
                     try:
-                        from ..importers.github_importer import GitHubImporter
+                        from importers.github_importer import GitHubImporter
                         github_importer = GitHubImporter(self.config)
                         github_data = github_importer.import_starred_repos()
                         import_stats['items_imported'] += len(github_data.get('bookmarks', []))
@@ -911,7 +911,7 @@ Examples:
                 # Handle browser import
                 if getattr(args, 'import_browser', None):
                     try:
-                        from ..importers.universal_importer import UniversalImporter
+                        from importers.universal_importer import UniversalImporter
                         universal_importer = UniversalImporter(self.config)
                         browser_data = universal_importer.import_browser_bookmarks(args.import_browser)
                         import_stats['items_imported'] += len(browser_data.get('bookmarks', []))
@@ -933,7 +933,7 @@ Examples:
             
             if getattr(args, 'enable_scraping', False):
                 try:
-                    from ..enhancement.link_enhancement_engine import LinkEnhancementEngine
+                    from enhancement.link_enhancement_engine import LinkEnhancementEngine
                     enhancement_engine = LinkEnhancementEngine(self.config)
                     
                     bookmarks = input_data.get('bookmarks', [])
@@ -968,10 +968,10 @@ Examples:
             
             if getattr(args, 'enable_ai_analysis', False):
                 try:
-                    from ..ai.content_analyzer import ContentAnalyzer
-                    from ..ai.clustering_engine import ClusteringEngine
-                    from ..ai.similarity_engine import SimilarityEngine
-                    from ..ai.tag_predictor import TagPredictor
+                    from ai.content_analyzer import ContentAnalyzer
+                    from ai.clustering_engine import ClusteringEngine
+                    from ai.similarity_engine import SimilarityEngine
+                    from ai.tag_predictor import TagPredictor
                     
                     content_analyzer = ContentAnalyzer(self.config)
                     clustering_engine = ClusteringEngine(self.config)
@@ -1222,7 +1222,7 @@ Examples:
         """Generate enhanced processing report with learning data"""
         
         try:
-            from ..reporting.report_generator import ReportGenerator, ReportFormat
+            from reporting.report_generator import ReportGenerator, ReportFormat
             
             report_generator = ReportGenerator(self.config)
             
@@ -1275,7 +1275,7 @@ Examples:
         try:
             print("📥 Importing bookmarks from sources...")
             
-            from ..importers.universal_importer import UniversalImporter, ImportConfig
+            from importers.universal_importer import UniversalImporter, ImportConfig
             
             # Create import configuration
             import_config = ImportConfig(
@@ -1645,7 +1645,7 @@ Examples:
         
         try:
             import asyncio
-            from ..utils.json_handler import JSONHandler
+            from utils.json_handler import JSONHandler
             
             print(f"🔍 Checking dead links in: {args.input_file}")
             
@@ -1893,7 +1893,7 @@ Examples:
         """Execute help command"""
         
         try:
-            from .help_system import show_help_command
+            from cli.help_system import show_help_command
             
             if args.topics:
                 show_help_command('topics')
@@ -2048,7 +2048,7 @@ Examples:
                 print("\n🐙 GitHub Cache:")
                 
                 try:
-                    from ..importers.github_importer import GitHubImporter
+                    from importers.github_importer import GitHubImporter
                     github_importer = GitHubImporter(self.config)
                     cache_info = github_importer.get_cache_info()
                     
@@ -2091,7 +2091,7 @@ Examples:
             
             if source in ['github', 'all']:
                 try:
-                    from ..importers.github_importer import GitHubImporter
+                    from importers.github_importer import GitHubImporter
                     github_importer = GitHubImporter(self.config)
                     github_importer.clear_cache()
                     print("  ✅ GitHub cache cleared")
@@ -2120,7 +2120,7 @@ Examples:
             
             if source == 'github':
                 try:
-                    from ..importers.github_importer import GitHubImporter
+                    from importers.github_importer import GitHubImporter
                     
                     # Override config for force refresh
                     refresh_config = self.config.copy()

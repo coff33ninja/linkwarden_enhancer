@@ -6,9 +6,9 @@ from collections import defaultdict, Counter
 from datetime import datetime
 from pathlib import Path
 
-from ..utils.logging_utils import get_logger
-from ..utils.url_utils import UrlUtils
-from ..utils.text_utils import TextUtils
+from utils.logging_utils import get_logger
+from utils.url_utils import UrlUtils
+from utils.text_utils import TextUtils
 
 logger = get_logger(__name__)
 

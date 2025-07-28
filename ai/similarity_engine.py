@@ -15,8 +15,8 @@ try:
 except ImportError:
     SENTENCE_TRANSFORMERS_AVAILABLE = False
 
-from ..utils.logging_utils import get_logger
-from ..utils.text_utils import TextUtils
+from utils.logging_utils import get_logger
+from utils.text_utils import TextUtils
 
 logger = get_logger(__name__)
 

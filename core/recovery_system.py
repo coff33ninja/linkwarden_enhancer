@@ -7,9 +7,9 @@ from pathlib import Path
 from datetime import datetime
 from dataclasses import dataclass
 
-from ..utils.logging_utils import get_logger
-from .backup_system import BackupSystem, BackupInfo
-from .integrity_checker import IntegrityChecker
+from utils.logging_utils import get_logger
+from core.backup_system import BackupSystem, BackupInfo
+from core.integrity_checker import IntegrityChecker
 
 logger = get_logger(__name__)
 

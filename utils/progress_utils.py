@@ -7,7 +7,7 @@ from datetime import timedelta
 from dataclasses import dataclass
 from contextlib import contextmanager
 
-from .logging_utils import get_logger
+from utils.logging_utils import get_logger
 
 logger = get_logger(__name__)
 

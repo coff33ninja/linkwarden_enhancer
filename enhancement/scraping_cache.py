@@ -10,9 +10,9 @@ from datetime import datetime, timedelta
 from dataclasses import dataclass, asdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-from .base_scraper import ScrapingResult
-from ..utils.logging_utils import get_logger
-from ..utils.file_utils import FileUtils
+from enhancement.base_scraper import ScrapingResult
+from utils.logging_utils import get_logger
+from utils.file_utils import FileUtils
 
 logger = get_logger(__name__)
 

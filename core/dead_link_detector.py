@@ -15,9 +15,9 @@ from datetime import datetime, timedelta
 import json
 import time
 
-from ..utils.logging_utils import EnhancedLogger
-from ..utils.progress_utils import EnhancedProgressTracker
-from ..data_models import LinkwardenBookmark
+from utils.logging_utils import ComponentLogger
+from utils.progress_utils import DetailedProgressTracker
+from data_models import LinkwardenBookmark
 
 logger = logging.getLogger(__name__)
 

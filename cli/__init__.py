@@ -1,6 +1,6 @@
 """Command-line interface components"""
 
-from .main_cli import MainCLI
-from .interactive import InteractiveReviewer, InteractiveMenu
+from cli.main_cli import MainCLI
+from cli.interactive import InteractiveReviewer, InteractiveMenu
 
 __all__ = ['MainCLI', 'InteractiveReviewer', 'InteractiveMenu']

@@ -3,10 +3,10 @@
 from typing import Dict, Any, List, Optional
 from dataclasses import dataclass, field
 
-from .github_importer import GitHubImporter
-from .linkwarden_importer import LinkwardenImporter
-from ..data_models import ImportResult
-from ..utils.logging_utils import get_logger
+from importers.github_importer import GitHubImporter
+from importers.linkwarden_importer import LinkwardenImporter
+from data_models import ImportResult
+from utils.logging_utils import get_logger
 
 logger = get_logger(__name__)
 

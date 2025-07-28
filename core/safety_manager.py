@@ -4,15 +4,15 @@ import time
 from typing import Dict, Any, Optional, List
 from pathlib import Path
 
-from ..utils.logging_utils import get_logger
-from ..importers.universal_importer import UniversalImporter, ImportConfig
-from ..utils.file_utils import FileUtils
-from ..intelligence.dictionary_manager import SmartDictionaryManager
-from .validation_engine import ValidationEngine
-from .backup_system import BackupSystem
-from .progress_monitor import ProgressMonitor
-from .integrity_checker import IntegrityChecker
-from .recovery_system import RecoverySystem
+from utils.logging_utils import get_logger
+from importers.universal_importer import UniversalImporter, ImportConfig
+from utils.file_utils import FileUtils
+from intelligence.dictionary_manager import SmartDictionaryManager
+from core.validation_engine import ValidationEngine
+from core.backup_system import BackupSystem
+from core.progress_monitor import ProgressMonitor
+from core.integrity_checker import IntegrityChecker
+from core.recovery_system import RecoverySystem
 
 logger = get_logger(__name__)
 
@@ -68,7 +68,7 @@ class SafetyManager:
                 self.progress_monitor.add_error(operation_id, error_msg)
                 self.progress_monitor.complete_operation(operation_id, False)
 
-                from ..data_models import SafetyResult, ChangeSet
+                from data_models import SafetyResult, ChangeSet
 
                 return SafetyResult(
                     success=False,
@@ -96,7 +96,7 @@ class SafetyManager:
                 self.progress_monitor.add_error(operation_id, error_msg)
                 self.progress_monitor.complete_operation(operation_id, False)
 
-                from ..data_models import SafetyResult, ChangeSet
+                from data_models import SafetyResult, ChangeSet
 
                 return SafetyResult(
                     success=False,
@@ -281,7 +281,7 @@ class SafetyManager:
             logger.info(f"Import completed: {import_result.get_summary()}")
 
             # Create result
-            from ..data_models import SafetyResult, ChangeSet, EnhancementReport
+            from data_models import SafetyResult, ChangeSet, EnhancementReport
 
             # Create enhancement report
             enhancement_report = EnhancementReport(
@@ -312,7 +312,7 @@ class SafetyManager:
             self.progress_monitor.add_error(operation_id, str(e))
             self.progress_monitor.complete_operation(operation_id, False)
 
-            from ..data_models import SafetyResult, ChangeSet
+            from data_models import SafetyResult, ChangeSet
 
             return SafetyResult(
                 success=False,
@@ -354,7 +354,7 @@ class SafetyManager:
                 logger.error(
                     f"GitHub import configuration validation failed: {validation_errors}"
                 )
-                from ..data_models import SafetyResult, ChangeSet
+                from data_models import SafetyResult, ChangeSet
 
                 return SafetyResult(
                     success=False,
@@ -386,7 +386,7 @@ class SafetyManager:
             logger.info(f"GitHub import completed: {import_result.get_summary()}")
 
             # Create result
-            from ..data_models import SafetyResult, ChangeSet, EnhancementReport
+            from data_models import SafetyResult, ChangeSet, EnhancementReport
 
             enhancement_report = EnhancementReport(
                 bookmarks_enhanced=import_result.total_bookmarks,
@@ -413,7 +413,7 @@ class SafetyManager:
 
         except Exception as e:
             logger.error(f"GitHub import failed: {e}")
-            from ..data_models import SafetyResult, ChangeSet
+            from data_models import SafetyResult, ChangeSet
 
             return SafetyResult(
                 success=False,

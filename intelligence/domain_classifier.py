@@ -4,8 +4,8 @@ import re
 from typing import List, Dict, Set, Tuple, Optional, Any
 from collections import defaultdict
 
-from ..utils.logging_utils import get_logger
-from ..utils.url_utils import UrlUtils
+from utils.logging_utils import get_logger
+from utils.url_utils import UrlUtils
 
 logger = get_logger(__name__)
 
