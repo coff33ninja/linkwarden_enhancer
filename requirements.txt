@@ -32,6 +32,7 @@ python-dotenv>=0.19.0
 click>=8.0.0
 tqdm>=4.62.0
 colorama>=0.4.4
+jsonchema
 
 # Optional dependencies for advanced features
 # Uncomment if needed:
