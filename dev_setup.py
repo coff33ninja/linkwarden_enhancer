@@ -104,7 +104,6 @@ def install_dependencies():
     commands = [
         (f"{pip_cmd} install --upgrade pip", "Upgrading pip"),
         (f"{pip_cmd} install -r requirements.txt", "Installing dependencies"),
-        (f"{pip_cmd} install -e .", "Installing package in development mode"),
     ]
     
     for command, description in commands:
@@ -210,13 +209,14 @@ def main():
         print(f"\n🎯 Next steps:")
         print(f"   1. Activate virtual environment: {activation_cmd}")
         print(f"   2. Edit .env file with your GitHub token")
-        print(f"   3. Test installation: linkwarden-enhancer --version")
-        print(f"   4. Run with your backup: linkwarden-enhancer --input backup.json --dry-run")
+        print(f"   3. Test the application: python cli.py --help")
+        print(f"   4. Run with your backup: python cli.py process backup.json output.json --dry-run")
         
         print(f"\n📚 Quick commands:")
-        print(f"   • Help: linkwarden-enhancer --help")
-        print(f"   • Import GitHub: linkwarden-enhancer --import-github")
-        print(f"   • Full AI analysis: linkwarden-enhancer --input backup.json --ai-enabled")
+        print(f"   • Help: python cli.py help")
+        print(f"   • Interactive menu: python cli.py menu")
+        print(f"   • Import GitHub: python cli.py import --github --github-token TOKEN -o output.json")
+        print(f"   • Process with AI: python cli.py process input.json output.json --enable-ai-analysis")
 
 
 if __name__ == "__main__":

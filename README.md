@@ -6,14 +6,14 @@ A comprehensive, AI-powered bookmark management system that transforms your Link
 
 For detailed documentation on all modules, classes, and functions, please see the `docs` directory.
 
-- **[CLI Reference](linkwarden_enhancer/docs/cli.md)**
-- **[Core System](linkwarden_enhancer/docs/core.md)**
-- **[AI & Machine Learning](linkwarden_enhancer/docs/ai.md)**
-- **[Intelligence System](linkwarden_enhancer/docs/intelligence.md)**
-- **[Enhancement Engine](linkwarden_enhancer/docs/enhancement.md)**
-- **[Importers](linkwarden_enhancer/docs/importers.md)**
-- **[Reporting](linkwarden_enhancer/docs/reporting.md)**
-- **[Utilities](linkwarden_enhancer/docs/utils.md)**
+- **[CLI Reference](docs/cli.md)**
+- **[Core System](docs/core.md)**
+- **[AI & Machine Learning](docs/ai.md)**
+- **[Intelligence System](docs/intelligence.md)**
+- **[Enhancement Engine](docs/enhancement.md)**
+- **[Importers](docs/importers.md)**
+- **[Reporting](docs/reporting.md)**
+- **[Utilities](docs/utils.md)**
 
 ## 🚀 Core Features
 
@@ -98,6 +98,13 @@ linkwarden_enhancer/
 ├── importers/         # Multi-source data import systems
 ├── reporting/         # Analytics and report generation
 ├── cli/               # Command-line interface and interactive tools
+├── utils/             # Utility functions and helpers
+├── docs/              # Comprehensive documentation
+├── examples/          # Usage examples and demos
+├── tests/             # Test suites
+├── cli.py             # Main CLI entry point
+├── main.py            # Alternative entry point
+└── dev_setup.py       # Development environment setup
 ├── config/            # Configuration management
 ├── utils/             # Shared utilities and helpers
 ├── tests/             # Comprehensive test suite
@@ -128,40 +135,47 @@ linkwarden_enhancer/
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/coff33ninja/linkwarden_enhancer
 cd linkwarden-enhancer
 ```
 
-### 2. Create Virtual Environment
+### 2. Run Development Setup
 ```bash
-python -m venv venv
-
-# Windows
-venv\Scripts\activate
-
-# macOS/Linux  
-source venv/bin/activate
+# This will create .venv, install dependencies, and set up the environment
+python dev_setup.py
 ```
 
-### 3. Install Dependencies
+**Or manually:**
 ```bash
+# Create virtual environment
+python -m venv .venv
+
+# Activate virtual environment
+# Windows
+.venv\Scripts\activate
+# macOS/Linux  
+source .venv/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-### 4. Configure Settings
+### 3. Configure Environment (Optional)
 ```bash
-cp config/defaults.py config/settings.py
-# Edit config/settings.py with your preferences
+# Copy example environment file and edit with your settings
+cp .env.example .env
+# Edit .env with your GitHub token and preferences
 ```
 
-### 5. Set Up GitHub Integration (Optional)
+### 4. Set Up GitHub Integration (Optional)
 ```bash
 # Create GitHub Personal Access Token with 'repo' and 'user' scopes
-export GITHUB_TOKEN="your_github_token_here"
-export GITHUB_USERNAME="your_github_username"
+# Add to .env file:
+# GITHUB_TOKEN=your_github_token_here
+# GITHUB_USERNAME=your_github_username
 ```
 
-### 6. Set Up Ollama (Optional)
+### 5. Set Up Ollama (Optional)
 ```bash
 # Install Ollama: https://ollama.ai
 ollama pull llama2  # or your preferred model
@@ -170,24 +184,24 @@ ollama pull llama2  # or your preferred model
 ## 🚀 **Quick Start**
 
 ### Command-Line Interface
-For a detailed CLI reference, see the **[CLI Documentation](linkwarden_enhancer/docs/cli.md)**.
+For a detailed CLI reference, see the **[CLI Documentation](docs/cli.md)**.
 
 ```bash
 # Interactive menu for guided operations
-linkwarden-enhancer menu
+python cli.py menu
 
 # Process bookmarks with full AI enhancement
-linkwarden-enhancer process input.json output.json \
+python cli.py process input.json output.json \
   --enable-ai-analysis \
   --enable-learning \
   --enable-clustering \
   --interactive
 
 # Dry run to preview all changes
-linkwarden-enhancer process input.json output.json --dry-run --verbose
+python cli.py process input.json output.json --dry-run --verbose
 
 # Import from GitHub with intelligent categorization and caching
-linkwarden-enhancer import --github \
+python cli.py import --github \
   --github-token YOUR_TOKEN \
   --github-username YOUR_USERNAME \
   --output github_bookmarks.json
