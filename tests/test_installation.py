@@ -109,7 +109,6 @@ def test_configuration():
         from config.settings import load_config
         config = load_config()
         print("✅ Configuration: Loaded successfully")
-        assert True
     except Exception as e:
         print(f"❌ Configuration: Failed to load - {e}")
         assert False
