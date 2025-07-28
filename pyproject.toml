@@ -1,0 +1,117 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "linkwarden-enhancer"
+version = "0.1.0"
+description = "An intelligent, AI-powered bookmark management system that transforms your Linkwarden bookmarks into a smart, continuously learning organization tool."
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "DJ", email = "your.email@example.com"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Internet :: WWW/HTTP :: Browsers",
+    "Topic :: Office/Business :: Groupware",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.21.0",
+    "pandas>=1.3.0",
+    "requests>=2.25.0",
+    "beautifulsoup4>=4.9.0",
+    "lxml>=4.6.0",
+    "scikit-learn>=1.0.0",
+    "sentence-transformers>=2.2.0",
+    "nltk>=3.6.0",
+    "networkx>=2.6.0",
+    "selenium>=4.0.0",
+    "requests-html>=0.10.0",
+    "newspaper3k>=0.2.8",
+    "aiohttp>=3.8.0",
+    "PyGithub>=1.55.0",
+    "ollama>=0.1.0",
+    "textblob>=0.17.0",
+    "spacy>=3.4.0",
+    "python-dotenv>=0.19.0",
+    "click>=8.0.0",
+    "tqdm>=4.62.0",
+    "colorama>=0.4.4",
+    "psutil",
+    "jsonschema",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.2.0",
+    "pytest-cov>=2.12.0",
+    "black>=21.0.0",
+    "flake8>=3.9.0",
+    "mypy>=0.910",
+]
+advanced = [
+    "torch>=1.9.0",
+    "transformers>=4.12.0",
+    "chromadb>=0.3.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/coff33ninja/linkwarden_enhancer"
+Repository = "https://github.com/coff33ninja/linkwarden_enhancer"
+Issues = "https://github.com/coff33ninja/linkwarden_enhancer/issues"
+
+[project.scripts]
+linkwarden-enhancer = "main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["*"]
+exclude = [
+    "tests*",
+    "examples*",
+    "docs*",
+    ".venv*",
+    "data*",
+    "backups*",
+    "cache*",
+    "logs*",
+    "models*",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true

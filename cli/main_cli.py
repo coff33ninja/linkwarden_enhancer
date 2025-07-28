@@ -9,19 +9,19 @@ from typing import Dict, List, Any, Optional
 from pathlib import Path
 from datetime import datetime
 
-from .interactive import InteractiveReviewer, InteractiveMenu
-from .help_system import HelpSystem
-from ..core.safety_manager import SafetyManager
-from ..core.dead_link_detector import DeadLinkDetector, DeadLinkManager
-from ..intelligence.dictionary_manager import SmartDictionaryManager
-from ..intelligence.continuous_learner import ContinuousLearner
-from ..intelligence.adaptive_intelligence import AdaptiveIntelligence
-from ..intelligence.intelligence_manager import IntelligenceManager
-from ..reporting.report_generator import ReportGenerator, ReportFormat
-from ..reporting.metrics_collector import MetricsCollector
-from ..config.settings import load_config
-from ..utils.logging_utils import get_logger, setup_logging, setup_verbose_logging, get_component_logger
-from ..utils.progress_utils import DetailedProgressTracker
+from cli.interactive import InteractiveReviewer, InteractiveMenu
+from cli.help_system import HelpSystem
+from core.safety_manager import SafetyManager
+from core.dead_link_detector import DeadLinkDetector, DeadLinkManager
+from intelligence.dictionary_manager import SmartDictionaryManager
+from intelligence.continuous_learner import ContinuousLearner
+from intelligence.adaptive_intelligence import AdaptiveIntelligence
+from intelligence.intelligence_manager import IntelligenceManager
+from reporting.report_generator import ReportGenerator, ReportFormat
+from reporting.metrics_collector import MetricsCollector
+from config.settings import load_config
+from utils.logging_utils import get_logger, setup_logging, setup_verbose_logging, get_component_logger
+from utils.progress_utils import DetailedProgressTracker
 
 logger = get_logger(__name__)
 

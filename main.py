@@ -8,10 +8,10 @@ import sys
 from pathlib import Path
 from typing import Optional, Dict, List, Any
 
-from .config.settings import load_config
-from .core.safety_manager import SafetyManager
-from .utils.logging_utils import setup_logging
-from .utils.version import get_version_info
+from config.settings import load_config
+from core.safety_manager import SafetyManager
+from utils.logging_utils import setup_logging
+from utils.version import get_version_info
 
 
 @click.command()
