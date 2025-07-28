@@ -5,6 +5,5 @@ black>=21.0.0
 flake8>=3.9.0
 mypy>=0.910
 psutil
-jsonschema
 safety
 bandit
